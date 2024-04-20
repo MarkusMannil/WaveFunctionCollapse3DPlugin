@@ -1,0 +1,7 @@
+[gd_resource type="World" load_steps=2 format=2]
+
+[ext_resource path="res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/env.tres" type="Environment" id=1]
+
+[resource]
+environment = ExtResource( 1 )
+fallback_environment = ExtResource( 1 )

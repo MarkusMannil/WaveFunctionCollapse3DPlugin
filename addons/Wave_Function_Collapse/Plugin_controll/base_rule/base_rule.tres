@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://addons/Wave_Function_Collapse/Resources/ui_rule.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+id = 1
+rule_name = "wall"
+color = Color( 0.611765, 0.278431, 0.278431, 1 )
+special = false
