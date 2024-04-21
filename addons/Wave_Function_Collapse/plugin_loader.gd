@@ -18,6 +18,7 @@ signal show_icon
 
 func _enter_tree():
 	
+	
 	docked_scene = wfc_main_control.instance()
 	
 	editor_interface_selection = get_editor_interface().get_selection()
@@ -26,6 +27,7 @@ func _enter_tree():
 	connect("WFC_node_selected",docked_scene,"WFC_node_selected")
 	connect("other_node_selected",docked_scene,"other_node_selected")
 	connect("show_icon", docked_scene, "add_icons")
+	
 	pass
 
 

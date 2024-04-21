@@ -33,11 +33,25 @@ var grid_map : GridMap
 var mesh_lib : MeshLibrary
 
 
-func _ready():
-	rnd = RandomNumberGenerator.new()
-	pass
-# 0 wall
-# 1 sky 
+func _get_configuration_warning():
+	if grid_map == null:
+		return "A GridMap node must be added or created for this node to work"
+	else:
+		return ""
+
+func _on_wave_function_collapse_child_entered_tree(node):
+	
+	if node.get_class() == "GridMap":
+		grid_map = node
+		update_configuration_warning()
+
+func _on_wave_function_collapse_child_exiting_tree(node):
+	
+	if node == grid_map:
+		grid_map = null
+		update_configuration_warning()
+	
+	pass # Replace with function body.
 
 func get_wfc_resource():
 	return objects_resource
@@ -446,3 +460,9 @@ func dec2bin(decimal_value : int):
 		count -= 1 
 
 	return binary_string
+
+
+
+
+
+

@@ -1,9 +1,8 @@
 tool
 extends Control
 
-# ajutine 
-export var wfc_list : Resource
-# ajutine
+var wfc_list : Resource
+
 var wfc_node : wave_function_collapse
 
 onready var preview_list  = $"%GridContainer"
@@ -31,7 +30,7 @@ func _ready():
 	for i in preview_list.get_children():
 		preview_list.remove_child(i)
 	
-	if wfc_list != null and wfc_list.has_method("get_objects"):
+	if wfc_list.has_method("get_objects"):
 		for obj in wfc_list.get_objects():
 			var preview_object = preview_object_prefab.instance()
 			preview_object.set_object_resource(obj)
@@ -47,7 +46,6 @@ func WFC_node_selected(node):
 	$"%Main_Panel".visible = true
 	$"%Edit_panel".visible = false
 	$"%no_selected_panel".visible = false
-	wfc_node.get_objects()
 	_ready()
 	
 func add_icons():

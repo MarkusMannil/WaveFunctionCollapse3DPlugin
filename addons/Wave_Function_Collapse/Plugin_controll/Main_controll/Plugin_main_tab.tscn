@@ -738,12 +738,10 @@ anchor_bottom = 1.0
 [node name="Label" type="Label" parent="no_selected_panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 128.0
-margin_top = 64.0
-margin_right = -192.0
-margin_bottom = -144.0
 custom_fonts/font = SubResource( 1 )
-text = "No WFC Node selected"
+text = "Wave function collapse node 
+missing WFC_object_list resource
+"
 align = 1
 valign = 1
 
@@ -777,6 +775,6 @@ valign = 1
 [connection signal="pressed" from="Edit_panel/Control/Rule_ to_all_sides/add_rul_to_all" to="." method="_on_add_rul_to_all_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Rule_ to_all_sides/cancel_rul_to_all" to="." method="_on_cancel_rul_to_all_pressed"]
 [connection signal="item_selected" from="Edit_panel/Control/Rule_ to_all_sides/rul_to_all_options" to="." method="_on_rul_to_all_options_item_selected"]
-[connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_rul_edit_pressed"]
+[connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Edit_rule_panel/Add_rule_to_rules" to="." method="_on_Add_rule_to_rules_pressed"]
