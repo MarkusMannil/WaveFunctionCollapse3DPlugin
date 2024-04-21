@@ -11,7 +11,7 @@ Create a new WFC_object_list resource and add it to the wfc_node
 # WFC docked scene
 Selecting the WFC node in a WFC editor dock should open
 
-## BASE RULE EDIT
+## Base rule edit
 Plugin uses a rule-based system, where you can add rules to object sides, which lets objects connect to any object with matching rule.
 There are also special rules, that won't let objects connect with sides that have the same rule
 
