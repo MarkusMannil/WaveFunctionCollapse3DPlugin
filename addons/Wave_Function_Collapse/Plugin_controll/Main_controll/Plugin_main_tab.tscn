@@ -47,9 +47,10 @@ margin_right = 256.0
 anchor_left = 0.094
 anchor_top = 0.06
 anchor_right = 0.875
-anchor_bottom = 0.23
-margin_left = -0.0640011
+anchor_bottom = 0.29
+margin_left = -0.064003
 margin_right = -1.52588e-05
+margin_bottom = -24.0
 
 [node name="Add" type="Button" parent="Main_Panel/Control/Panel/Action_buttons"]
 margin_right = 199.0

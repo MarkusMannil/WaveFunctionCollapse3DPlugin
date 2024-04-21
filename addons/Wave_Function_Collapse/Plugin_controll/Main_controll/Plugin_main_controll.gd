@@ -46,6 +46,7 @@ func WFC_node_selected(node):
 	$"%Main_Panel".visible = true
 	$"%Edit_panel".visible = false
 	$"%no_selected_panel".visible = false
+	set_obj_inactive()
 	_ready()
 	
 func add_icons():
@@ -69,10 +70,16 @@ func set_obj_active(object):
 	if selected_object != null:
 		selected_object.deselect()
 	selected_object = object
+	$Main_Panel/Control/Panel/Action_buttons/Edit.disabled = false
+	$Main_Panel/Control/Panel/Action_buttons/Duplicate.disabled = false
+	$Main_Panel/Control/Panel/Action_buttons/Delete.disabled = false
 	
 func set_obj_inactive():
 	selected_object = null
-
+	$Main_Panel/Control/Panel/Action_buttons/Edit.disabled = true
+	$Main_Panel/Control/Panel/Action_buttons/Duplicate.disabled = true
+	$Main_Panel/Control/Panel/Action_buttons/Delete.disabled = true
+	
 func _on_Edit_pressed():
 	load_rules_to_dict()
 	# maybe message
