@@ -21,7 +21,7 @@ Plugin uses a rule-based system, where you can add rules to object sides, which 
 There are also special rules, that won't let objects connect with sides that have the same rule
 
 You can add base rules that you can set for your objects.
-When adding a rule you can change their name, color and make it special. (Maybe rename special -> ?)
+When adding a rule you can change their name, color and make it special. 
 
 ![img_4](https://github.com/MarkusMannil/WaveFunctionCollapse3DPlugin/assets/83127947/80ff6c0c-0293-494a-af0d-cfa1c286429e)
 
