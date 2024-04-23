@@ -18,10 +18,11 @@ func _init():
 	add_rule(rul)
 	
 	camera_settings = {
-	"fov" : 30,
+	"fov" : 35,
 	"height" : 1,
 	"dist" : 2,
-	"angle" :  -21}
+	"angle" :  -21
+	}
 
 func add_resource(resource : WFC_object):
 	object_list.append(resource)

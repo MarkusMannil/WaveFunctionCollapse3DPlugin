@@ -10,8 +10,6 @@ signal rule_del
 func _ready():
 	$Main/Delete.icon = get_icon("Remove", "EditorIcons")
 	$Main/Edit.icon = get_icon("Edit", "EditorIcons")
-	$Edit/Save.icon = get_icon("Save", "EditorIcons")
-	$Edit/Cancel.icon = get_icon("Back", "EditorIcons")
 	
 func set_rule(rul):
 	rule = rul

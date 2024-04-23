@@ -449,21 +449,21 @@ valign = 1
 unique_name_in_owner = true
 anchor_top = 0.214
 anchor_bottom = 0.321
-margin_left = 128.0
+margin_left = 129.0
 margin_top = 0.0639954
-margin_right = 320.0
+margin_right = 321.0
 margin_bottom = 0.0960007
 min_value = 1.0
 max_value = 179.0
-value = 40.0
+value = 35.0
 rounded = true
 
 [node name="Fov" type="Label" parent="Main_Panel/Camera_settings"]
 anchor_top = 0.214
 anchor_bottom = 0.321
-margin_left = 8.0
+margin_left = 32.0
 margin_top = 0.0639954
-margin_right = 64.0
+margin_right = 88.0
 margin_bottom = 0.0960007
 text = "FOV"
 align = 1
@@ -478,16 +478,15 @@ margin_top = 40.064
 margin_right = 320.0
 margin_bottom = 40.096
 min_value = 1.0
-value = 2.0
+value = 1.0
 rounded = true
 
 [node name="Height2" type="Label" parent="Main_Panel/Camera_settings"]
-anchor_top = 0.214
-anchor_bottom = 0.321
-margin_left = 8.0
-margin_top = 40.064
-margin_right = 64.0
-margin_bottom = 40.096
+anchor_top = 0.393
+anchor_bottom = 0.5
+margin_left = 32.0
+margin_top = -0.0319977
+margin_right = 88.0
 text = "Height"
 align = 1
 valign = 1
@@ -507,12 +506,12 @@ value = -21.0
 rounded = true
 
 [node name="Angle" type="Label" parent="Main_Panel/Camera_settings"]
-anchor_top = 0.214
-anchor_bottom = 0.321
-margin_left = 8.0
-margin_top = 120.064
-margin_right = 64.0
-margin_bottom = 120.096
+anchor_top = 0.75
+anchor_bottom = 0.857
+margin_left = 32.0
+margin_top = -1.52588e-05
+margin_right = 88.0
+margin_bottom = 0.0319824
 text = "Angle"
 align = 1
 valign = 1
@@ -526,27 +525,29 @@ margin_top = 80.064
 margin_right = 320.0
 margin_bottom = 80.096
 min_value = 1.0
-value = 1.0
+value = 2.0
 rounded = true
 
 [node name="dist" type="Label" parent="Main_Panel/Camera_settings"]
-anchor_top = 0.214
-anchor_bottom = 0.321
-margin_left = 8.0
-margin_top = 80.064
-margin_right = 64.0
-margin_bottom = 80.096
+anchor_top = 0.571
+anchor_bottom = 0.679
+margin_left = 32.0
+margin_top = 0.095993
+margin_right = 88.0
+margin_bottom = -0.0960083
 text = "Dist"
 align = 1
 valign = 1
 
 [node name="Button" type="Button" parent="Main_Panel/Camera_settings"]
-anchor_top = 0.857
-anchor_bottom = 0.929
-margin_left = 344.0
-margin_top = 0.0319824
-margin_right = 408.0
-margin_bottom = 3.90399
+anchor_left = 1.0
+anchor_top = 0.759
+anchor_right = 1.0
+anchor_bottom = 0.848
+margin_left = -81.0
+margin_top = -0.0160065
+margin_right = -17.0
+margin_bottom = 0.0480194
 text = "Back"
 
 [node name="Edit_panel" type="Panel" parent="."]

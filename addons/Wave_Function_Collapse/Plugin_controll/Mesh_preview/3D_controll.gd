@@ -70,7 +70,7 @@ func _on_Panel_gui_input(event):
 	pass # Replace with function body.
 
 func cam_settings_changed(fov, height, dist, ang):
-	camera.fov = fov
-	camera.translation = Vector3(dist,height,0)
-	camera.rotation_degrees = Vector3(ang,90,0)
+	$Viewport/Camera.fov = fov
+	$Viewport/Camera.translation = Vector3(dist,height,0)
+	$Viewport/Camera.rotation_degrees = Vector3(ang,90,0)
 

@@ -31,10 +31,8 @@ func _ready():
 		other_node_selected()
 		return
 	
-	fov = wfc_list.camera_settings["fov"]
-	height = wfc_list.camera_settings["height"]
-	dist = wfc_list.camera_settings["dist"]
-	angle = wfc_list.camera_settings["angle"]
+	load_camera_settings()
+	
 	
 	for i in preview_list.get_children():
 		preview_list.remove_child(i)
@@ -68,6 +66,7 @@ func add_icons():
 	$Main_Panel/Control/Panel/Generate.icon = get_icon("Play", "EditorIcons")
 	$Main_Panel/Control/Panel/Clear_map.icon = get_icon("Clear", "EditorIcons")
 	$Main_Panel/Control/Panel/Edit_rules.icon = get_icon("Edit", "EditorIcons")
+	$Main_Panel/Control/Panel/view_settings.icon = get_icon("GDScript", "EditorIcons")
 
 func other_node_selected():
 	$"%Edit_rule_panel".visible = false
@@ -113,7 +112,7 @@ func _on_Back_pressed():
 	$"%Edit_rule_panel".visible = false
 	$"%Camera_settings".visible = false
 	ResourceSaver.save(wfc_list.resource_path, wfc_list)
-	
+	print(wfc_list.camera_settings)
 	pass # Replace with function body.
 
 
@@ -328,7 +327,7 @@ func save_new_resource():
 
 func _on_Yes_pressed():
 	wfc_list.remove_object_from_list(selected_object.object_resource)
-	selected_object = null
+	set_obj_inactive()
 	_ready()
 	$"%Delete_panel".visible = false
 	ResourceSaver.save(wfc_list.resource_path, wfc_list)
@@ -601,11 +600,7 @@ func _on_cancel_rul_to_all_pressed():
 
 
 func _on_view_settings_pressed():
-	
-	
-	
 	$"%Camera_settings".visible = true
-	pass # Replace with function body.
 
 
 func _on_fov_spin_value_changed(value):
@@ -632,4 +627,13 @@ func _on_angle_spin_value_changed(value):
 	emit_signal("cam_settings_changed", fov, height, dist, angle)
 	wfc_list.camera_settings["angle"] = value
 	
-
+func load_camera_settings():
+	fov = wfc_list.camera_settings["fov"]
+	height = wfc_list.camera_settings["height"]
+	dist = wfc_list.camera_settings["dist"]
+	angle = wfc_list.camera_settings["angle"]
+	$"%fov_spin".value = fov
+	$"%Height_spin".value = height
+	$"%Dist_spin".value = dist
+	$"%angle_spin".value = angle
+	pass

@@ -103,6 +103,7 @@ margin_top = 48.0
 margin_right = 72.0
 margin_bottom = 72.0
 text = "cancel"
+icon = SubResource( 2 )
 
 [node name="Save" type="Button" parent="Edit"]
 margin_left = 264.0
@@ -110,6 +111,7 @@ margin_top = 48.0
 margin_right = 329.0
 margin_bottom = 72.0
 text = "save"
+icon = SubResource( 2 )
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Edit"]
 unique_name_in_owner = true
