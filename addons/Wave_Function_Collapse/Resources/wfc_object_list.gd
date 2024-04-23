@@ -7,6 +7,8 @@ export(Array, Resource) var object_list : Array  = []
 
 export(Array, Resource) var rule_list : Array  = []
 
+var camera_settings  :Dictionary
+
 var special_rules : int = 0 
 
 func _init():
@@ -14,6 +16,12 @@ func _init():
 	rule_list = []
 	var rul = load("res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/base_rule.tres")
 	add_rule(rul)
+	
+	camera_settings = {
+	"fov" : 30,
+	"height" : 1,
+	"dist" : 2,
+	"angle" :  -21}
 
 func add_resource(resource : WFC_object):
 	object_list.append(resource)

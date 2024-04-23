@@ -31,6 +31,11 @@ func _ready():
 		other_node_selected()
 		return
 	
+	fov = wfc_list.camera_settings["fov"]
+	height = wfc_list.camera_settings["height"]
+	dist = wfc_list.camera_settings["dist"]
+	angle = wfc_list.camera_settings["angle"]
+	
 	for i in preview_list.get_children():
 		preview_list.remove_child(i)
 	
@@ -41,6 +46,8 @@ func _ready():
 			preview_object.set_base(self)
 			preview_list.add_child(preview_object)
 			connect("cam_settings_changed",preview_object,"cam_settings_changed")
+	
+	emit_signal("cam_settings_changed", fov, height, dist, angle)
 	
 	
 
@@ -199,6 +206,8 @@ func fill_adj_objects_container():
 		preview_object.set_mesh_rotation(get_op_side_rot(selected_angle),Vector3(0,0,0))
 		$"%adj_obj_container".add_child(preview_object)
 		connect("cam_settings_changed",preview_object,"cam_settings_changed")
+	emit_signal("cam_settings_changed", fov, height, dist, angle)
+	
 
 func get_op_side_rot(side : int) -> Vector3:
 	
@@ -282,6 +291,7 @@ func _on_Mesh_select_file_selected(path):
 	
 	$"%preview_control".set_mesh(load(path))
 	$"%preview".visible = true
+	emit_signal("cam_settings_changed", fov, height, dist, angle)
 	pass # Replace with function body.
 
 func save_new_resource():
@@ -601,20 +611,25 @@ func _on_view_settings_pressed():
 func _on_fov_spin_value_changed(value):
 	fov = value
 	emit_signal("cam_settings_changed", fov, height, dist, angle)
-	pass # Replace with function body.
+	
+	wfc_list.camera_settings["fov"] = value
+
 
 func _on_Height_spin_value_changed(value):
 	height = value
 	emit_signal("cam_settings_changed", fov, height, dist, angle)
-	pass # Replace with function body.
+	wfc_list.camera_settings["height"] = value
+
 
 func _on_Dist_spin_value_changed(value):
 	dist = value
 	emit_signal("cam_settings_changed", fov, height, dist, angle)
-	pass # Replace with function body.
+	wfc_list.camera_settings["dist"] = value
+	
 
 func _on_angle_spin_value_changed(value):
 	angle = value 
 	emit_signal("cam_settings_changed", fov, height, dist, angle)
-	pass # Replace with function body.
+	wfc_list.camera_settings["angle"] = value
+	
 
