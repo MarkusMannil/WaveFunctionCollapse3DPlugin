@@ -1,5 +1,5 @@
-# Set the default behavior, in case people don't have core.autocrlf set.
-* text=auto
+# Normalize line endings for all files that Git considers text files.
+* text=auto eol=lf
 
 # Explicitly declare text files you want to always be normalized and converted
 # to native line endings on checkout.
@@ -15,3 +15,8 @@
 # Denote all files that are truly binary and should not be modified.
 *.png binary
 *.jpg binary
+
+# Only include the addons folder when downloading from the Asset Library.
+/**        export-ignore
+/addons    !export-ignore
+/addons/** !export-ignore
