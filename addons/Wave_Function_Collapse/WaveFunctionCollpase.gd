@@ -102,7 +102,7 @@ func get_object_adj(object):
 	
 	var index = object.id
 	
-	var same_mesh : bool 
+	
 	
 	var special = objects_resource.special_rules
 	
@@ -113,41 +113,40 @@ func get_object_adj(object):
 		
 		var rule = obj.get_rule_as_int()
 		
-		same_mesh = obj.mesh_id == object.mesh_id
 		
 		if(rule[0] & obj_rules[1] != 0):
 			
-			if same_mesh && (rule[0] & obj_rules[1] & special != 0):
+			if rule[0] & obj_rules[1] & special != 0:
 				continue 
 			else:
 				adjacency_objects[index][1] += 1 << i
 			
 		if(rule[1] & obj_rules[0] != 0):
-			if same_mesh && (rule[0] & obj_rules[1] & special != 0):
+			if rule[0] & obj_rules[1] & special != 0:
 				continue 
 			else:
 				adjacency_objects[index][0] += 1 << i
 			
 		if(rule[2] & obj_rules[3] != 0):
-			if same_mesh && (rule[2] & obj_rules[3] & special != 0):
+			if rule[2] & obj_rules[3] & special != 0:
 				continue 
 			else:
 				adjacency_objects[index][3] += 1 << i
 			
 		if(rule[3] & obj_rules[2] != 0):
-			if same_mesh && (rule[3] & obj_rules[2] & special != 0):
+			if rule[3] & obj_rules[2] & special != 0:
 				continue 
 			else:
 				adjacency_objects[index][2] += 1 << i
 			
 		if(rule[4] & obj_rules[5] != 0):
-			if same_mesh && (rule[4] & obj_rules[5] & special != 0):
+			if rule[4] & obj_rules[5] & special != 0:
 				continue 
 			else:
 				adjacency_objects[index][5] += 1 << i
 			
 		if(rule[5] & obj_rules[4] != 0):
-			if same_mesh && (rule[5] & obj_rules[4] & special != 0):
+			if rule[5] & obj_rules[4] & special != 0:
 				continue 
 			else:
 				adjacency_objects[index][4] += 1 << i

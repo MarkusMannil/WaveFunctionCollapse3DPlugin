@@ -134,7 +134,8 @@ margin_left = 208.0
 margin_top = 8.0
 margin_right = 336.0
 margin_bottom = 32.0
-text = "Special connect"
+hint_tooltip = "if ticked won't connect side with same rule "
+text = "special connect"
 
 [connection signal="pressed" from="Main/Edit" to="." method="_on_Edit_pressed"]
 [connection signal="pressed" from="Main/Delete" to="." method="_on_Delete_pressed"]
