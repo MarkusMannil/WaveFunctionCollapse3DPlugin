@@ -2,7 +2,7 @@ tool
 extends ViewportContainer
 class_name mesh_preview
 
-var camera 
+var camera : Camera
 var border
 var base
 var object_resource : WFC_object
@@ -68,3 +68,9 @@ func _on_Panel_gui_input(event):
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			select()
 	pass # Replace with function body.
+
+func cam_settings_changed(fov, height, dist, ang):
+	camera.fov = fov
+	camera.translation = Vector3(dist,height,0)
+	camera.rotation_degrees = Vector3(ang,90,0)
+

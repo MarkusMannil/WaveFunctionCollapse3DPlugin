@@ -33,6 +33,10 @@ var grid_map : GridMap
 var mesh_lib : MeshLibrary
 
 
+func _init():
+	connect("child_entered_tree",self, "_on_wave_function_collapse_child_entered_tree")
+	connect("child_exiting_tree",self, "_on_wave_function_collapse_child_exiting_tree")
+
 func _get_configuration_warning():
 	if grid_map == null:
 		return "A GridMap node must be added or created for this node to work"
@@ -40,7 +44,7 @@ func _get_configuration_warning():
 		return ""
 
 func _on_wave_function_collapse_child_entered_tree(node):
-	
+	print(node.get_class())
 	if node.get_class() == "GridMap":
 		grid_map = node
 		update_configuration_warning()

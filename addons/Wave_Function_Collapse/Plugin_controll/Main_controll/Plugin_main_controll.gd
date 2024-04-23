@@ -15,8 +15,12 @@ onready var rule_base_prefab = preload("res://addons/Wave_Function_Collapse/Plug
 
 var selected_object : mesh_preview = null
 
+var fov : int = 30
+var height : int = 1
+var dist : int = 2
+var angle : int = -21
 
-
+signal cam_settings_changed 
 
 var rule_dict = {}
 
@@ -36,7 +40,7 @@ func _ready():
 			preview_object.set_object_resource(obj)
 			preview_object.set_base(self)
 			preview_list.add_child(preview_object)
-			
+			connect("cam_settings_changed",preview_object,"cam_settings_changed")
 	
 	
 
@@ -100,7 +104,7 @@ func _on_Back_pressed():
 	$"%Main_Panel".visible = true
 	$"%Edit_panel".visible = false
 	$"%Edit_rule_panel".visible = false
-	
+	$"%Camera_settings".visible = false
 	ResourceSaver.save(wfc_list.resource_path, wfc_list)
 	
 	pass # Replace with function body.
@@ -194,6 +198,7 @@ func fill_adj_objects_container():
 		preview_object.disable_label_and_click()
 		preview_object.set_mesh_rotation(get_op_side_rot(selected_angle),Vector3(0,0,0))
 		$"%adj_obj_container".add_child(preview_object)
+		connect("cam_settings_changed",preview_object,"cam_settings_changed")
 
 func get_op_side_rot(side : int) -> Vector3:
 	
@@ -583,3 +588,33 @@ func _on_cancel_rul_to_all_pressed():
 	
 	$"%Rule_ to_all_sides".visible = false
 	load_rules_of_side(selected_angle)
+
+
+func _on_view_settings_pressed():
+	
+	
+	
+	$"%Camera_settings".visible = true
+	pass # Replace with function body.
+
+
+func _on_fov_spin_value_changed(value):
+	fov = value
+	emit_signal("cam_settings_changed", fov, height, dist, angle)
+	pass # Replace with function body.
+
+func _on_Height_spin_value_changed(value):
+	height = value
+	emit_signal("cam_settings_changed", fov, height, dist, angle)
+	pass # Replace with function body.
+
+func _on_Dist_spin_value_changed(value):
+	dist = value
+	emit_signal("cam_settings_changed", fov, height, dist, angle)
+	pass # Replace with function body.
+
+func _on_angle_spin_value_changed(value):
+	angle = value 
+	emit_signal("cam_settings_changed", fov, height, dist, angle)
+	pass # Replace with function body.
+

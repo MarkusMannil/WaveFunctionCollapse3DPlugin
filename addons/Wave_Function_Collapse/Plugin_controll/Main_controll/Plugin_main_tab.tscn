@@ -27,6 +27,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 1024, 400 )
+rect_pivot_offset = Vector2( -7, -79 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -81,9 +82,9 @@ anchor_top = 1.0
 anchor_right = 0.906
 anchor_bottom = 1.0
 margin_left = -0.0640011
-margin_top = -96.0
+margin_top = -128.0
 margin_right = -7.93602
-margin_bottom = -72.0
+margin_bottom = -104.0
 text = "Generate"
 
 [node name="Clear_map" type="Button" parent="Main_Panel/Control/Panel"]
@@ -91,10 +92,10 @@ anchor_left = 0.094
 anchor_top = 1.0
 anchor_right = 0.875
 anchor_bottom = 1.0
-margin_left = -0.0639973
-margin_top = -64.0
+margin_left = -0.0640011
+margin_top = -96.0
 margin_right = -3.05176e-05
-margin_bottom = -40.0
+margin_bottom = -72.0
 text = "Clear map"
 
 [node name="Edit_rules" type="Button" parent="Main_Panel/Control/Panel"]
@@ -103,10 +104,21 @@ anchor_top = 1.0
 anchor_right = 0.871
 anchor_bottom = 1.0
 margin_left = -0.0640011
-margin_top = -32.0
+margin_top = -64.0
 margin_right = 0.0239868
-margin_bottom = -8.0
+margin_bottom = -40.0
 text = "Edit rules"
+
+[node name="view_settings" type="Button" parent="Main_Panel/Control/Panel"]
+anchor_left = 0.094
+anchor_top = 1.0
+anchor_right = 0.875
+anchor_bottom = 1.0
+margin_left = -0.0640011
+margin_top = -32.0
+margin_right = -1.52588e-05
+margin_bottom = -4.0
+text = "Object view settings"
 
 [node name="Objects" type="ScrollContainer" parent="Main_Panel"]
 unique_name_in_owner = true
@@ -411,6 +423,131 @@ margin_top = 168.0
 margin_right = 392.0
 margin_bottom = 203.0
 text = "Duplicate"
+
+[node name="Camera_settings" type="Panel" parent="Main_Panel"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color( 0.352941, 0.313726, 0.313726, 0.894118 )
+anchor_left = 0.344
+anchor_top = 0.08
+anchor_right = 0.758
+anchor_bottom = 0.64
+margin_left = -0.256012
+margin_right = -0.192017
+
+[node name="cam_label" type="Label" parent="Main_Panel/Camera_settings"]
+anchor_left = 0.226
+anchor_right = 0.83
+margin_left = 0.175995
+margin_right = 0.0799866
+margin_bottom = 32.0
+text = "Object preview settings"
+align = 1
+valign = 1
+
+[node name="fov_spin" type="SpinBox" parent="Main_Panel/Camera_settings"]
+unique_name_in_owner = true
+anchor_top = 0.214
+anchor_bottom = 0.321
+margin_left = 128.0
+margin_top = 0.0639954
+margin_right = 320.0
+margin_bottom = 0.0960007
+min_value = 1.0
+max_value = 179.0
+value = 40.0
+rounded = true
+
+[node name="Fov" type="Label" parent="Main_Panel/Camera_settings"]
+anchor_top = 0.214
+anchor_bottom = 0.321
+margin_left = 8.0
+margin_top = 0.0639954
+margin_right = 64.0
+margin_bottom = 0.0960007
+text = "FOV"
+align = 1
+valign = 1
+
+[node name="Height_spin" type="SpinBox" parent="Main_Panel/Camera_settings"]
+unique_name_in_owner = true
+anchor_top = 0.214
+anchor_bottom = 0.321
+margin_left = 128.0
+margin_top = 40.064
+margin_right = 320.0
+margin_bottom = 40.096
+min_value = 1.0
+value = 2.0
+rounded = true
+
+[node name="Height2" type="Label" parent="Main_Panel/Camera_settings"]
+anchor_top = 0.214
+anchor_bottom = 0.321
+margin_left = 8.0
+margin_top = 40.064
+margin_right = 64.0
+margin_bottom = 40.096
+text = "Height"
+align = 1
+valign = 1
+
+[node name="angle_spin" type="SpinBox" parent="Main_Panel/Camera_settings"]
+unique_name_in_owner = true
+anchor_top = 0.214
+anchor_bottom = 0.321
+margin_left = 128.0
+margin_top = 120.064
+margin_right = 320.0
+margin_bottom = 120.096
+min_value = -45.0
+max_value = 0.0
+step = -1.0
+value = -21.0
+rounded = true
+
+[node name="Angle" type="Label" parent="Main_Panel/Camera_settings"]
+anchor_top = 0.214
+anchor_bottom = 0.321
+margin_left = 8.0
+margin_top = 120.064
+margin_right = 64.0
+margin_bottom = 120.096
+text = "Angle"
+align = 1
+valign = 1
+
+[node name="Dist_spin" type="SpinBox" parent="Main_Panel/Camera_settings"]
+unique_name_in_owner = true
+anchor_top = 0.214
+anchor_bottom = 0.321
+margin_left = 128.0
+margin_top = 80.064
+margin_right = 320.0
+margin_bottom = 80.096
+min_value = 1.0
+value = 1.0
+rounded = true
+
+[node name="dist" type="Label" parent="Main_Panel/Camera_settings"]
+anchor_top = 0.214
+anchor_bottom = 0.321
+margin_left = 8.0
+margin_top = 80.064
+margin_right = 64.0
+margin_bottom = 80.096
+text = "Dist"
+align = 1
+valign = 1
+
+[node name="Button" type="Button" parent="Main_Panel/Camera_settings"]
+anchor_top = 0.857
+anchor_bottom = 0.929
+margin_left = 344.0
+margin_top = 0.0319824
+margin_right = 408.0
+margin_bottom = 3.90399
+text = "Back"
 
 [node name="Edit_panel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -746,6 +883,8 @@ missing WFC_object_list resource
 align = 1
 valign = 1
 
+[connection signal="cam_settings_changed" from="." to="Main_Panel/Add_object_panel/preview/preview_control" method="cam_settings_changed"]
+[connection signal="cam_settings_changed" from="." to="Edit_panel/Edit_sceene/Mesh_preview" method="cam_settings_changed"]
 [connection signal="pressed" from="Main_Panel/Control/Panel/Action_buttons/Add" to="." method="_on_Add_pressed"]
 [connection signal="pressed" from="Main_Panel/Control/Panel/Action_buttons/Edit" to="." method="_on_Edit_pressed"]
 [connection signal="pressed" from="Main_Panel/Control/Panel/Action_buttons/Duplicate" to="." method="_on_Duplicate_pressed"]
@@ -753,6 +892,7 @@ valign = 1
 [connection signal="pressed" from="Main_Panel/Control/Panel/Generate" to="." method="_on_Generate_pressed"]
 [connection signal="pressed" from="Main_Panel/Control/Panel/Clear_map" to="." method="_on_Clear_map_pressed"]
 [connection signal="pressed" from="Main_Panel/Control/Panel/Edit_rules" to="." method="_on_Edit_rules_pressed"]
+[connection signal="pressed" from="Main_Panel/Control/Panel/view_settings" to="." method="_on_view_settings_pressed"]
 [connection signal="pressed" from="Main_Panel/Add_object_panel/Save_button" to="." method="_on_Add_Save_button_pressed"]
 [connection signal="pressed" from="Main_Panel/Add_object_panel/Cancel_button" to="." method="_on_Add_Cancel_button_pressed"]
 [connection signal="dir_selected" from="Main_Panel/Add_object_panel/Folder_select" to="." method="_on_Folder_select_dir_selected"]
@@ -763,6 +903,11 @@ valign = 1
 [connection signal="pressed" from="Main_Panel/Delete_panel/No" to="." method="_on_No_pressed"]
 [connection signal="pressed" from="Main_Panel/Duplicate_object/cancel_duplicate_button" to="." method="_on_cancel_duplicate_button_pressed"]
 [connection signal="pressed" from="Main_Panel/Duplicate_object/duplicate_button" to="." method="_on_duplicate_button_pressed"]
+[connection signal="value_changed" from="Main_Panel/Camera_settings/fov_spin" to="." method="_on_fov_spin_value_changed"]
+[connection signal="value_changed" from="Main_Panel/Camera_settings/Height_spin" to="." method="_on_Height_spin_value_changed"]
+[connection signal="value_changed" from="Main_Panel/Camera_settings/angle_spin" to="." method="_on_angle_spin_value_changed"]
+[connection signal="value_changed" from="Main_Panel/Camera_settings/Dist_spin" to="." method="_on_Dist_spin_value_changed"]
+[connection signal="pressed" from="Main_Panel/Camera_settings/Button" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Edit_panel/Edit_sceene/Add_rule_button" to="." method="_on_Add_rule_button_pressed"]
 [connection signal="pressed" from="Edit_panel/Edit_sceene/update_adj" to="." method="_on_update_adj_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Panel/Back" to="." method="_on_Back_pressed"]
@@ -776,6 +921,6 @@ valign = 1
 [connection signal="pressed" from="Edit_panel/Control/Rule_ to_all_sides/add_rul_to_all" to="." method="_on_add_rul_to_all_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Rule_ to_all_sides/cancel_rul_to_all" to="." method="_on_cancel_rul_to_all_pressed"]
 [connection signal="item_selected" from="Edit_panel/Control/Rule_ to_all_sides/rul_to_all_options" to="." method="_on_rul_to_all_options_item_selected"]
-[connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_rul_edit_pressed"]
 [connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_rul_edit_pressed"]
 [connection signal="pressed" from="Edit_rule_panel/Add_rule_to_rules" to="." method="_on_Add_rule_to_rules_pressed"]
