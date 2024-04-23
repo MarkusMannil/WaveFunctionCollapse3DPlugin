@@ -1,5 +1,7 @@
 # Wave Function Collapse 3D Plugin
-Godot plugin for Wave Function Collapse 3D
+Godot plugin for Wave Function Collapse 3D.
+Wave function collapse is a procedural content generation algorithm, that generates maps based on set of objects and adjacency rules between them.
+
 # Creating a WFC object
 In a 3D scene create a new wave_function_collapse node.
 
