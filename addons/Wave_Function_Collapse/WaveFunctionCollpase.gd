@@ -32,6 +32,11 @@ var grid_map : GridMap
 
 var mesh_lib : MeshLibrary
 
+var pos_tiles : Array
+var start_collapsable : int
+var nan_pos : wfc_position
+
+var error : bool = false 
 
 func _init():
 	connect("child_entered_tree",self, "_on_wave_function_collapse_child_entered_tree")
@@ -44,7 +49,6 @@ func _get_configuration_warning():
 		return ""
 
 func _on_wave_function_collapse_child_entered_tree(node):
-	print(node.get_class())
 	if node.get_class() == "GridMap":
 		grid_map = node
 		update_configuration_warning()
@@ -66,6 +70,7 @@ func ready_grid_map():
 		grid_map = get_child(0)
 	
 	grid_map.mesh_library.clear()
+	print("gridmap mesh lib cleared")
 	grid_map.clear()
 	grid_map.cell_size = object_size
 	
@@ -75,7 +80,7 @@ func get_objects():
 	if grid_map == null:
 		grid_map = get_child(0)
 	
-	wfc_objects.clear()
+	wfc_objects = []
 	
 	var count = 0
 	
@@ -88,7 +93,7 @@ func get_objects():
 		count += 1 
 		# todo -> rot_logic
 	
-	adjacency_objects.clear()
+	adjacency_objects = []
 	objects_resource.update_special_rules()
 	for obj in wfc_objects:
 		adjacency_objects.append([0,0,0,0,0,0])
@@ -102,7 +107,8 @@ func get_object_adj(object):
 	
 	var index = object.id
 	
-	
+	if index == 9:
+		print(obj_rules)
 	
 	var special = objects_resource.special_rules
 	
@@ -113,6 +119,8 @@ func get_object_adj(object):
 		
 		var rule = obj.get_rule_as_int()
 		
+		if index == 9:
+			print(rule[1] , " ", rule[0])
 		
 		if(rule[0] & obj_rules[1] != 0):
 			
@@ -188,10 +196,13 @@ func run_wave_function_collapse():
 	
 	ready_grid_map()
 	get_objects()
-	set_up_grid()
-	neighbour_shifts = get_neighbour_shifts()
+	#set_up_grid()
+	#neighbour_shifts = get_neighbour_shifts()
+	var start =OS.get_ticks_msec()
+	do_fancy_wfc()
+	print(OS.get_ticks_msec() - start)
 	
-	wave_function_collapse()
+	# wave_function_collapse()
 	
 
 func fix_side_logic(ui_side):
@@ -276,12 +287,9 @@ func collapse_cell(pos : Vector3):
 	var possible = map[pos.x][pos.y][pos.z]
 	
 	# get random bit and turn it into an index
-	
 	var obj_index = get_random_active_bit(possible)
 	
 	map[pos.x][pos.y][pos.z] = obj_index
-	
-	obj_index = bit_to_index(obj_index)
 	
 	# debug_grids()
 
@@ -371,7 +379,6 @@ func get_index_from_dir(dir : Vector3):
 		return 3
 	if dir.x == -1:
 		return 2
-		
 	if dir.z == 1:
 		return 5
 	if dir.z == -1:
@@ -428,7 +435,7 @@ func get_entropy(mask:int):
 	var n = mask
 	# if count zero then return high number
 	if(mask == 0):
-		return null
+		return 0
 		
 	while n > 0:
 		n &= (n-1)
@@ -465,7 +472,216 @@ func dec2bin(decimal_value : int):
 	return binary_string
 
 
+func create_map2():
+	
+	nan_pos = wfc_position.new(-1, -1,Vector3(-1,-1,-1),-1)
+	pos_tiles = []
+	start_collapsable = 0
+	var index = 0
+	all = int(pow(2,wfc_objects.size())-1)
+	for x in range(max_bound.x - min_bound.x):
+		for y in range(max_bound.y - min_bound.y):
+			for z in range(max_bound.z - min_bound.z):
+				pos_tiles.append(wfc_position.new(index,all,Vector3(x,y,z),wfc_objects.size()))
+				index += 1
+	
+	var start : wfc_position
+	
+	for pos in pos_tiles:
+		add_neighbours_to_pos(pos)
+		
+		if(pos.pos == start_pos):
+			start = pos
+		
+		
+	pos_tiles.shuffle()
+	
+	if start != null:
+		swich_pos(0, pos_tiles.find(start))
+	pass
+
+func add_neighbours_to_pos(pos : wfc_position):
+	var arr = []
+	
+	var index = vector_to_index(pos.pos + Vector3.UP)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.DOWN)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.FORWARD)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.BACK)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.RIGHT)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.LEFT)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+		
+	pos.neighbours = arr
+
+func vector_to_index(vec : Vector3):
+	
+	if vec.x < 0 or vec.x >= max_bound.x - min_bound.x:
+		return -1
+	if vec.y < 0 or vec.y >= max_bound.y - min_bound.y:
+		return -1
+	if vec.z < 0 or vec.z >= max_bound.z - min_bound.z:
+		return -1
+	
+	return vec.x * (max_bound.y - min_bound.y) * (max_bound.z - min_bound.z) + vec.y * (max_bound.z - min_bound.z) + vec.z
+	
+	pass
+
+func select_next_cell():
+	
+	while pos_tiles[start_collapsable].entropy <= 1:
+		start_collapsable += 1
+		if start_collapsable == pos_tiles.size() :
+			return null
+	
+	return pos_tiles[start_collapsable]
+
+func collapse_cell2(pos : wfc_position):
+	
+	pos.bit_value = get_random_active_bit(pos.bit_value)
+	
+	pos.entropy = 1
+	
+	start_collapsable += 1
+	
+	propagate_map2(pos)
+	
+func propagate_map2(pos : wfc_position):
+	var stack = []
+	# add all neighbouring tiles to the stack
+	stack.append_array(pos.neighbours)
+	
+	while !stack.empty():
+		var val = stack.pop_front()
+		if val.entropy <= 1:
+			continue
+		elif propagate_pos2(val):
+			stack.append_array(val.neighbours)
+		
 
 
+func propagate_pos2(pos :wfc_position) -> bool:
+	if pos.entropy <= 1:
+		return false
+	
+	var start_entropy = pos.entropy
+	var rul_index 
+	var get_rul
+	for n in pos.neighbours:
+		if n == nan_pos: 
+			continue
+		else:
+			rul_index = get_index_from_dir(n.pos - pos.pos)
+			get_rul = get_rule_with_dir(n.bit_value, rul_index)
+			
+			pos.bit_value &= get_rul
+			pass
+	pos.entropy = get_entropy(pos.bit_value)
+	
+	if pos.entropy == 0:
+		error = true
+	
+	if start_entropy != pos.entropy:
+		sort_pos_by_entropy(pos)
+		return true
+	else:
+		return false
+
+func sort_pos_by_entropy(pos : wfc_position):
+	
+	# find pos in list
+	
+	var start = pos_tiles.find(pos)
+	
+	# check if next is lower 
+	while pos_tiles[start].entropy < pos_tiles[start - 1].entropy:
+		
+		var index = find_entropy_end_from_pos_tiles(start - 1)  #find_entropy_end_from_pos_tiles(start - 1)
+		
+		if index == 0:
+			break
+		
+		swich_pos(start, index)
+		start = index
+		
+	
+func find_entropy_end_from_pos_tiles(index : int) -> int:
+	
+	var entropy = pos_tiles[index].entropy
+	
+	while pos_tiles[index].entropy == entropy:
+		
+		if index == 0:
+			return 0
+		index -= 1
+		
+	return index + 1
 
 
+func swich_pos(index_1 : int, index_2 : int):
+	var temp = pos_tiles[index_1]
+	pos_tiles[index_1] = pos_tiles[index_2]
+	pos_tiles[index_2] = temp
+
+func put_obj_to_map2():
+	
+	var error : Mesh = load("res://kenney_modular-buildings/blockERROR.mesh")
+	add_mesh_to_mesh_lib(error)
+	
+	for obj in pos_tiles:
+		
+		if(obj.bit_value == 0):
+			grid_map.set_cell_item(obj.pos.x + min_bound.x, obj.pos.y + min_bound.y, obj.pos.z + min_bound.z, wfc_objects.size(), 0)
+			
+			continue
+		
+		var obj_index = bit_to_index(obj.bit_value)
+		var myQuaternion = Quat(Vector3(0, 1, 0.0), deg2rad(wfc_objects[obj_index].rotation.y))
+		
+		var cell_item_orientation = Basis(myQuaternion).get_orthogonal_index()
+
+		grid_map.set_cell_item(obj.pos.x + min_bound.x, obj.pos.y + min_bound.y, obj.pos.z + min_bound.z, obj_index, cell_item_orientation)
+		
+
+func do_fancy_wfc():
+	create_map2()
+	
+	
+	while start_collapsable < pos_tiles.size():
+		var pos = select_next_cell()
+		if pos == null:
+			break
+		
+		collapse_cell2(pos)
+	
+	put_obj_to_map2()
+
+	
+	
