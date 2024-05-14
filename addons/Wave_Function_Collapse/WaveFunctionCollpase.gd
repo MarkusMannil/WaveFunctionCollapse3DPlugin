@@ -107,9 +107,6 @@ func get_object_adj(object):
 	
 	var index = object.id
 	
-	if index == 9:
-		print(obj_rules)
-	
 	var special = objects_resource.special_rules
 	
 	for i in range(wfc_objects.size()):
@@ -118,9 +115,6 @@ func get_object_adj(object):
 		var obj = wfc_objects[i]
 		
 		var rule = obj.get_rule_as_int()
-		
-		if index == 9:
-			print(rule[1] , " ", rule[0])
 		
 		if(rule[0] & obj_rules[1] != 0):
 			
@@ -189,7 +183,7 @@ func set_up_grid():
 			map[i].append([])
 			for _l in range(max_bound.z - min_bound.z):
 				map[i][j].append(all) 
-	pass
+
 
 func run_wave_function_collapse():
 	rnd = RandomNumberGenerator.new()
@@ -200,10 +194,10 @@ func run_wave_function_collapse():
 	#neighbour_shifts = get_neighbour_shifts()
 	var start =OS.get_ticks_msec()
 	do_fancy_wfc()
-	print(OS.get_ticks_msec() - start)
+	print(OS.get_ticks_msec() - start , " mseconds")
 	
 	# wave_function_collapse()
-	
+
 
 func fix_side_logic(ui_side):
 	match ui_side:
@@ -212,7 +206,7 @@ func fix_side_logic(ui_side):
 		1:
 			return 3
 		2:
-			return  4
+			return 4
 		3:
 			return 5
 		4:
