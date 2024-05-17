@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "wfc_position",
 "language": "GDScript",
-"path": "res://wfc_pos.gd"
+"path": "res://addons/Wave_Function_Collapse/wfc_pos.gd"
 } ]
 _global_script_class_icons={
 "WFC_object": "",
@@ -51,7 +51,6 @@ _global_script_class_icons={
 [application]
 
 config/name="Wfc V 1 . 0"
-run/main_scene="res://Spatial.tscn"
 
 [editor]
 

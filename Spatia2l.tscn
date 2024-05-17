@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/Wave_Function_Collapse/WaveFunctionCollpase.gd" type="Script" id=1]
+[ext_resource path="res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/base_rule.tres" type="Resource" id=2]
+[ext_resource path="res://addons/Wave_Function_Collapse/Resources/wfc_object_list.gd" type="Script" id=3]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+object_list = [  ]
+rule_list = [ ExtResource( 2 ) ]
+
+[sub_resource type="MeshLibrary" id=1]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="wave_function_collapse" type="Node" parent="."]
+script = ExtResource( 1 )
+objects_resource = SubResource( 2 )
+
+[node name="GridMap" type="GridMap" parent="wave_function_collapse"]
+mesh_library = SubResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+__meta__ = {
+"_editor_clip_": 0
+}
