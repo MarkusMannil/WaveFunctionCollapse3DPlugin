@@ -308,6 +308,13 @@ margin_top = 16.0
 margin_right = 284.0
 margin_bottom = 292.0
 rect_scale = Vector2( 0.4, 0.4 )
+clicable = false
+
+[node name="Viewport" parent="Main_Panel/Add_object_panel/preview/preview_control" index="0"]
+render_target_update_mode = 0
+
+[node name="name_label" parent="Main_Panel/Add_object_panel/preview/preview_control" index="2"]
+text = ""
 
 [node name="Delete_panel" type="Panel" parent="Main_Panel"]
 unique_name_in_owner = true
@@ -925,3 +932,5 @@ valign = 1
 [connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_rul_edit_pressed"]
 [connection signal="pressed" from="Edit_rule_panel/Add_rule_to_rules" to="." method="_on_Add_rule_to_rules_pressed"]
+
+[editable path="Main_Panel/Add_object_panel/preview/preview_control"]

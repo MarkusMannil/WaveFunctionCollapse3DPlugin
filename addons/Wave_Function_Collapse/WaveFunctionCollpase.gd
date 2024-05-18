@@ -22,6 +22,8 @@ export var min_bound : Vector3
 # pos + max bound highest x y z cords : inclusive 
 export var max_bound : Vector3 = Vector3(1,1,1)
 
+export var run_with_ui_select : bool = true
+
 var all : int
 
 var rnd : RandomNumberGenerator
@@ -32,7 +34,12 @@ var grid_map : GridMap
 
 var mesh_lib : MeshLibrary
 
+var pos_tiles : Array
+var start_collapsable : int
+var nan_pos : wfc_position
 
+var error : bool = false 
+# set up warnings 
 func _init():
 	connect("child_entered_tree",self, "_on_wave_function_collapse_child_entered_tree")
 	connect("child_exiting_tree",self, "_on_wave_function_collapse_child_exiting_tree")
@@ -44,7 +51,6 @@ func _get_configuration_warning():
 		return ""
 
 func _on_wave_function_collapse_child_entered_tree(node):
-	print(node.get_class())
 	if node.get_class() == "GridMap":
 		grid_map = node
 		update_configuration_warning()
@@ -63,19 +69,26 @@ func get_wfc_resource():
 
 func ready_grid_map():
 	if grid_map == null:
-		grid_map = get_child(0)
+		printerr("Add Gridmap to wave_function_collapse node child")
+		return true
+	
+	if grid_map.mesh_library == null:
+		printerr("Add MeshLibrary to Gridmap")
+		return true
 	
 	grid_map.mesh_library.clear()
 	grid_map.clear()
 	grid_map.cell_size = object_size
+	return false
 	
 
 func get_objects():
 	
-	if grid_map == null:
-		grid_map = get_child(0)
+	if objects_resource == null:
+		printerr("Add WFC_object_list resource to wave_function_collapse node")
+		return true
 	
-	wfc_objects.clear()
+	wfc_objects = []
 	
 	var count = 0
 	
@@ -84,16 +97,15 @@ func get_objects():
 		wfc_objects.append(obj)
 		obj.id = count 
 		add_mesh_to_mesh_lib(obj.mesh)
-		
 		count += 1 
-		# todo -> rot_logic
 	
-	adjacency_objects.clear()
+	adjacency_objects = []
 	objects_resource.update_special_rules()
 	for obj in wfc_objects:
 		adjacency_objects.append([0,0,0,0,0,0])
 		get_object_adj(obj)
 	
+	return false
 	
 
 func get_object_adj(object):
@@ -101,8 +113,6 @@ func get_object_adj(object):
 	var obj_rules = object.get_rule_as_int()
 	
 	var index = object.id
-	
-	
 	
 	var special = objects_resource.special_rules
 	
@@ -112,7 +122,6 @@ func get_object_adj(object):
 		var obj = wfc_objects[i]
 		
 		var rule = obj.get_rule_as_int()
-		
 		
 		if(rule[0] & obj_rules[1] != 0):
 			
@@ -171,28 +180,21 @@ func get_adj_of_object_side(obj_id, obj_side):
 	
 	return(list)
 
-func set_up_grid():
-	map = []
-	all = int(pow(2,wfc_objects.size())-1)
-	
-	for i in range(max_bound.x - min_bound.x):
-		map.append([])
-		for j in range(max_bound.y - min_bound.y):
-			map[i].append([])
-			for _l in range(max_bound.z - min_bound.z):
-				map[i][j].append(all) 
-	pass
 
 func run_wave_function_collapse():
 	rnd = RandomNumberGenerator.new()
 	
-	ready_grid_map()
-	get_objects()
-	set_up_grid()
-	neighbour_shifts = get_neighbour_shifts()
+	var err = ready_grid_map()
+	if err: 
+		return
+		
+	err =  get_objects()
 	
+	if err: 
+		return
+	var start = OS.get_ticks_msec()
 	wave_function_collapse()
-	
+	print(OS.get_ticks_msec() - start , " msec")
 
 func fix_side_logic(ui_side):
 	match ui_side:
@@ -201,7 +203,7 @@ func fix_side_logic(ui_side):
 		1:
 			return 3
 		2:
-			return  4
+			return 4
 		3:
 			return 5
 		4:
@@ -220,132 +222,14 @@ func add_mesh_to_mesh_lib(mesh : Mesh):
 func get_neighbour_shifts():
 	# y+ y- x+ z+ x- z-
 	return [Vector3(0,1,0), Vector3(0,-1,0), Vector3(1,0,0), Vector3(-1,0,0), Vector3(0,0,1), Vector3(0,0,-1)]
-	
-# layer thing
-func fill_base_with_obj(id : int):
-	for i in range(map.size()):
-		for j in range(map[0][0].size()):
-			map[i][0][j] = 1 << id
-			propegate_map(Vector3(i,0,j))
-
-
-func wave_function_collapse():
-	
-	var cur = start_pos
-	
-	while true:
-		collapse_cell(cur)
-		cur = get_next_cell_to_collapse()
-		if cur == null:
-			break
-	put_objects_to_scene()
 
 
 func _input(event):
+	if !run_with_ui_select:
+		return
+	
 	if event.is_action_pressed("ui_select"):
 		run_wave_function_collapse()
-
-
-func get_next_cell_to_collapse():
-	var lowest_entropy_cells = []
-	var cur_low_entropy = all
-	var temp
-	
-	for x in range(max_bound.x - min_bound.x):
-		for y in range(max_bound.y - min_bound.y):
-			for z in range(max_bound.z - min_bound.z):
-				if is_collapsed(map[x][y][z]):
-					continue
-				temp = get_entropy(map[x][y][z]) 
-				if(cur_low_entropy == temp):
-					lowest_entropy_cells.append(Vector3(x,y,z))
-				elif(cur_low_entropy > temp):
-					cur_low_entropy = temp
-					lowest_entropy_cells.clear()
-					lowest_entropy_cells.append(Vector3(x,y,z))
-	
-	var random = int(rand_range(0, lowest_entropy_cells.size()))
-	
-	if(lowest_entropy_cells.size() == 0):
-		return null
-	return lowest_entropy_cells[random]
-
-
-func collapse_cell(pos : Vector3):
-	
-	var possible = map[pos.x][pos.y][pos.z]
-	
-	# get random bit and turn it into an index
-	
-	var obj_index = get_random_active_bit(possible)
-	
-	map[pos.x][pos.y][pos.z] = obj_index
-	
-	obj_index = bit_to_index(obj_index)
-	
-	# debug_grids()
-
-	propegate_map(pos)
-	
-	pass
-
-func propegate_map(pos : Vector3):
-	
-	var stack = []
-	var current = pos
-	
-	for i in neighbour_shifts:
-		stack.append(current + i)
-	
-	var boolean
-	while stack.size() != 0:
-		current = stack.pop_back()
-		# vaatame kas 
-		if propagate_cell(current):
-			for i in get_neighbour_shifts():
-				stack.append(current + i)
-
-
-func propagate_cell(pos : Vector3):
-	
-	if is_pos_out_of_bounds(pos):
-		return false
-	
-	var val = map[pos.x][pos.y][pos.z]
-	var before_val = map[pos.x][pos.y][pos.z]
-	
-	if is_collapsed(before_val):
-		return false
-	
-	#   vaata iga suunas oleva celli võimalike muutujate summat ning leia nende ühisosa
-	
-	var chk_pos 
-	
-	for shifts in get_neighbour_shifts():
-		chk_pos = pos + shifts
-		if is_pos_out_of_bounds(chk_pos):
-			continue
-		else:
-			var shift_val = map[chk_pos.x][chk_pos.y][chk_pos.z]
-			var get_rul = get_rule_with_dir(shift_val, get_index_from_dir(shifts))
-			
-			before_val &= get_rul
-	
-	map[pos.x][pos.y][pos.z] = before_val
-	
-	return val != before_val
-
-func is_pos_out_of_bounds(pos : Vector3): 
-	
-	if pos.x < 0 || pos.x >= map.size():
-		return true
-	
-	if pos.y < 0 || pos.y >= map[0].size():
-		return true
-		
-	if pos.z < 0 || pos.z >= map[0][0].size():
-		return true
-	return false
 
 
 func get_rule_with_dir(possible : int, i : int):
@@ -371,37 +255,10 @@ func get_index_from_dir(dir : Vector3):
 		return 3
 	if dir.x == -1:
 		return 2
-		
 	if dir.z == 1:
 		return 5
 	if dir.z == -1:
 		return 4
-
-func put_objects_to_scene():
-	
-#	var cool_mesh = load("res://kenney_modular-buildings/roof-slanted-flat_roof-slanted-flat.mesh")
-#	var cool_id = add_mesh_to_mesh_lib(cool_mesh)
-	
-	
-	for x in range(max_bound.x - min_bound.x):
-		for y in range(max_bound.y - min_bound.y):
-			for z in range(max_bound.z - min_bound.z):
-				assert(is_collapsed(map[x][y][z]), " cell not collapsed -" + str(map[x][y][z]))
-				
-				var obj_index = bit_to_index(map[x][y][z])
-				
-				if obj_index == -1: 
-					#printerr("WFC set_cell ERROR at: ", x ,",", y , "," ,z)
-					#grid_map.set_cell_item(x + min_bound.x, y + min_bound.y, z + min_bound.z, cool_id)
-					pass
-					
-				else:
-					var myQuaternion = Quat(Vector3(0, 1, 0.0), deg2rad(wfc_objects[obj_index].rotation.y))
-					
-					var cell_item_orientation = Basis(myQuaternion).get_orthogonal_index()
-					
-					grid_map.set_cell_item(x + min_bound.x, y + min_bound.y, z + min_bound.z, obj_index, cell_item_orientation)
-	pass
 
 
 func get_random_active_bit(mask : int):
@@ -428,7 +285,7 @@ func get_entropy(mask:int):
 	var n = mask
 	# if count zero then return high number
 	if(mask == 0):
-		return null
+		return 0
 		
 	while n > 0:
 		n &= (n-1)
@@ -465,7 +322,210 @@ func dec2bin(decimal_value : int):
 	return binary_string
 
 
+func create_map():
+	
+	nan_pos = wfc_position.new(-1, -1,Vector3(-1,-1,-1),-1)
+	pos_tiles = []
+	start_collapsable = 0
+	var index = 0
+	all = int(pow(2,wfc_objects.size())-1)
+	for x in range(max_bound.x - min_bound.x):
+		for y in range(max_bound.y - min_bound.y):
+			for z in range(max_bound.z - min_bound.z):
+				pos_tiles.append(wfc_position.new(index,all,Vector3(x,y,z),wfc_objects.size()))
+				index += 1
+	
+	var start : wfc_position
+	
+	for pos in pos_tiles:
+		add_neighbours_to_pos(pos)
+		
+		if(pos.pos == start_pos):
+			start = pos
+		
+		
+	pos_tiles.shuffle()
+	
+	if start != null:
+		swich_pos(0, pos_tiles.find(start))
+	pass
+
+func add_neighbours_to_pos(pos : wfc_position):
+	var arr = []
+	
+	var index = vector_to_index(pos.pos + Vector3.UP)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.DOWN)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.FORWARD)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.BACK)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.RIGHT)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+	
+	index = vector_to_index(pos.pos + Vector3.LEFT)
+	if index != -1:
+		arr.append(pos_tiles[index])
+	else:
+		arr.append(nan_pos)
+		
+	pos.neighbours = arr
+
+func vector_to_index(vec : Vector3):
+	
+	if vec.x < 0 or vec.x >= max_bound.x - min_bound.x:
+		return -1
+	if vec.y < 0 or vec.y >= max_bound.y - min_bound.y:
+		return -1
+	if vec.z < 0 or vec.z >= max_bound.z - min_bound.z:
+		return -1
+	
+	return vec.x * (max_bound.y - min_bound.y) * (max_bound.z - min_bound.z) + vec.y * (max_bound.z - min_bound.z) + vec.z
+	
+	pass
+
+func select_next_cell():
+	
+	while pos_tiles[start_collapsable].entropy <= 1:
+		start_collapsable += 1
+		if start_collapsable == pos_tiles.size() :
+			return null
+	
+	return pos_tiles[start_collapsable]
+
+func collapse_cell(pos : wfc_position):
+	
+	pos.bit_value = get_random_active_bit(pos.bit_value)
+	
+	pos.entropy = 1
+	
+	start_collapsable += 1
+	
+	propagate_map(pos)
+
+func propagate_map(pos : wfc_position):
+	
+	var stack = []
+	var point = 0
+	
+	var val_0
+	var val_1
+	
+	for neighbour in pos.neighbours:
+		stack.append(pos)
+		stack.append(neighbour)
+
+	while stack.size() > point:
+		val_0 = stack[point]
+		val_1 = stack[point + 1]
+		point += 2
+		
+		if propagate_pos_by_pos(val_0,val_1):
+			for n in val_1.neighbours :
+				stack.append(val_1)
+				stack.append(n)
+
+func propagate_pos_by_pos(col : wfc_position, pos : wfc_position):
+	# if pos is already collapsed don't check it 
+	if pos.entropy <= 1: 
+		return false
+	
+	var rul_index = get_index_from_dir(col.pos - pos.pos)
+	
+	var get_rul = get_rule_with_dir(col.bit_value, rul_index)
+	
+	var new = get_rul & pos.bit_value
+	# if calculated is different than current change pos data and return true for checking children else do nothing
+	if pos.bit_value != new :
+		pos.bit_value = new 
+		pos.entropy = get_entropy(new)
+		sort_pos_by_entropy(pos)
+		return true
+	else:
+		return false
+
+func sort_pos_by_entropy(pos : wfc_position):
+	
+	# find pos in list
+	
+	var start = pos_tiles.find(pos)
+	
+	# check if next is lower 
+	while pos_tiles[start].entropy < pos_tiles[start - 1].entropy:
+		
+		var index = find_entropy_end_from_pos_tiles(start - 1)  #find_entropy_end_from_pos_tiles(start - 1)
+		
+		if index == 0:
+			break
+		
+		swich_pos(start, index)
+		start = index
+		
+	
+func find_entropy_end_from_pos_tiles(index : int) -> int:
+	
+	var entropy = pos_tiles[index].entropy
+	
+	while pos_tiles[index].entropy == entropy:
+		
+		if index == 0:
+			return 0
+		index -= 1
+		
+	return index + 1
 
 
+func swich_pos(index_1 : int, index_2 : int):
+	var temp = pos_tiles[index_1]
+	pos_tiles[index_1] = pos_tiles[index_2]
+	pos_tiles[index_2] = temp
 
+func put_obj_to_map():
+	
+	for obj in pos_tiles:
+		
+		var obj_index = bit_to_index(obj.bit_value)
+		
+		if obj_index == -1:
+			continue
+		
+		var myQuaternion = Quat(Vector3(0, 1, 0.0), deg2rad(wfc_objects[obj_index].rotation.y))
+		var cell_item_orientation = Basis(myQuaternion).get_orthogonal_index()
+		grid_map.set_cell_item(obj.pos.x + min_bound.x, obj.pos.y + min_bound.y, obj.pos.z + min_bound.z, obj_index, cell_item_orientation)
+		
 
+func wave_function_collapse():
+	create_map()
+	
+	
+	while start_collapsable < pos_tiles.size():
+		var pos = select_next_cell()
+		if pos == null:
+			break
+		
+		collapse_cell(pos)
+	
+	put_obj_to_map()
+
+	
+	

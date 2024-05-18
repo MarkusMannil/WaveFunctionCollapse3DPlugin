@@ -454,11 +454,11 @@ func _on_duplicate_button_pressed():
 		new.rotate_rules_y90()
 		pass
 	if $"%Rotate_180".pressed:
-		new = duplicate_object(Vector3(0,180,0), keep_rules, "180")
+		new = duplicate_object(Vector3(0,180,0), keep_rules, "_180")
 		new.rotate_rules_y180()
 		pass
 	if $"%Rotate_270".pressed:
-		new = duplicate_object(Vector3(0,270,0), keep_rules, "270")
+		new = duplicate_object(Vector3(0,270,0), keep_rules, "_270")
 		new.rotate_rules_y270()
 		pass
 	if  !$"%Rotate_90".pressed and  !$"%Rotate_180".pressed and  !$"%Rotate_270".pressed:

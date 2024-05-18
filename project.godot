@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "wave_function_collapse",
 "language": "GDScript",
 "path": "res://addons/Wave_Function_Collapse/WaveFunctionCollpase.gd"
+}, {
+"base": "Reference",
+"class": "wfc_position",
+"language": "GDScript",
+"path": "res://addons/Wave_Function_Collapse/wfc_pos.gd"
 } ]
 _global_script_class_icons={
 "WFC_object": "",
 "WFC_object_list": "",
 "mesh_preview": "",
 "ui_rule": "",
-"wave_function_collapse": ""
+"wave_function_collapse": "",
+"wfc_position": ""
 }
 
 [application]

@@ -6,5 +6,5 @@
 script = ExtResource( 1 )
 id = 1
 rule_name = "wall"
-color = Color( 0.611765, 0.278431, 0.278431, 1 )
+color = Color( 0.972549, 0.0352941, 0.0352941, 1 )
 special = false
