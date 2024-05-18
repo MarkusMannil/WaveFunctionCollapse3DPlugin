@@ -192,10 +192,9 @@ func run_wave_function_collapse():
 	
 	if err: 
 		return
-
+	var start = OS.get_ticks_msec()
 	wave_function_collapse()
-
-
+	print(OS.get_ticks_msec() - start , " msec")
 
 func fix_side_logic(ui_side):
 	match ui_side:
@@ -422,44 +421,44 @@ func collapse_cell(pos : wfc_position):
 	
 	start_collapsable += 1
 	
-	propagate_map2(pos)
+	propagate_map(pos)
+
+func propagate_map(pos : wfc_position):
 	
-func propagate_map2(pos : wfc_position):
 	var stack = []
-	# add all neighbouring tiles to the stack
-	stack.append_array(pos.neighbours)
+	var point = 0
 	
-	while !stack.empty():
-		var val = stack.pop_front()
-		if val.entropy <= 1:
-			continue
-		elif propagate_pos(val):
-			stack.append_array(val.neighbours)
+	var val_0
+	var val_1
+	
+	for neighbour in pos.neighbours:
+		stack.append(pos)
+		stack.append(neighbour)
+
+	while stack.size() > point:
+		val_0 = stack[point]
+		val_1 = stack[point + 1]
+		point += 2
 		
+		if propagate_pos_by_pos(val_0,val_1):
+			for n in val_1.neighbours :
+				stack.append(val_1)
+				stack.append(n)
 
-
-func propagate_pos(pos :wfc_position) -> bool:
-	if pos.entropy <= 1:
+func propagate_pos_by_pos(col : wfc_position, pos : wfc_position):
+	# if pos is already collapsed don't check it 
+	if pos.entropy <= 1: 
 		return false
 	
-	var start_entropy = pos.entropy
-	var rul_index 
-	var get_rul
-	for n in pos.neighbours:
-		if n == nan_pos: 
-			continue
-		else:
-			rul_index = get_index_from_dir(n.pos - pos.pos)
-			get_rul = get_rule_with_dir(n.bit_value, rul_index)
-			
-			pos.bit_value &= get_rul
-			pass
-	pos.entropy = get_entropy(pos.bit_value)
+	var rul_index = get_index_from_dir(col.pos - pos.pos)
 	
-	if pos.entropy == 0:
-		error = true
+	var get_rul = get_rule_with_dir(col.bit_value, rul_index)
 	
-	if start_entropy != pos.entropy:
+	var new = get_rul & pos.bit_value
+	# if calculated is different than current change pos data and return true for checking children else do nothing
+	if pos.bit_value != new :
+		pos.bit_value = new 
+		pos.entropy = get_entropy(new)
 		sort_pos_by_entropy(pos)
 		return true
 	else:

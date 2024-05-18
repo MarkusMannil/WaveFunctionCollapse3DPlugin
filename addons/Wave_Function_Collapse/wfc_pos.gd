@@ -14,4 +14,4 @@ func _init(i : int , bit : int, position : Vector3 , e : int ):
 	entropy = e 
 	
 func _to_string():
-	return  " |"+ str(entropy) +"| "
+	return  " |"+ str(pos) + " " + str(bit_value) + "| "
