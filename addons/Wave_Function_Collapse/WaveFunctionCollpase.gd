@@ -36,6 +36,8 @@ var mesh_lib : MeshLibrary
 
 var pos_tiles : Array
 var start_collapsable : int
+
+var start_of_entropy : Array
 var nan_pos : wfc_position
 
 var error : bool = false 
@@ -285,7 +287,7 @@ func get_entropy(mask:int):
 	var n = mask
 	# if count zero then return high number
 	if(mask == 0):
-		return 0
+		return 1
 		
 	while n > 0:
 		n &= (n-1)
@@ -342,6 +344,7 @@ func create_map():
 		
 		if(pos.pos == start_pos):
 			start = pos
+			
 		
 		
 	pos_tiles.shuffle()
@@ -349,6 +352,14 @@ func create_map():
 	if start != null:
 		swich_pos(0, pos_tiles.find(start))
 	pass
+	
+	start_of_entropy = []
+	start_of_entropy.append(-1)
+	start_of_entropy.append(0)
+	for i in range(2, wfc_objects.size()):
+		start_of_entropy.append(-1)
+	start_of_entropy.append(0)
+	
 
 func add_neighbours_to_pos(pos : wfc_position):
 	var arr = []
@@ -421,6 +432,7 @@ func collapse_cell(pos : wfc_position):
 	
 	start_collapsable += 1
 	
+	
 	propagate_map(pos)
 
 func propagate_map(pos : wfc_position):
@@ -459,7 +471,8 @@ func propagate_pos_by_pos(col : wfc_position, pos : wfc_position):
 	if pos.bit_value != new :
 		pos.bit_value = new 
 		pos.entropy = get_entropy(new)
-		sort_pos_by_entropy(pos)
+		
+		sort_pos_by_entropy_2(pos)
 		return true
 	else:
 		return false
@@ -467,20 +480,89 @@ func propagate_pos_by_pos(col : wfc_position, pos : wfc_position):
 func sort_pos_by_entropy(pos : wfc_position):
 	
 	# find pos in list
-	
 	var start = pos_tiles.find(pos)
 	
 	# check if next is lower 
-	while pos_tiles[start].entropy < pos_tiles[start - 1].entropy:
-		
-		var index = find_entropy_end_from_pos_tiles(start - 1)  #find_entropy_end_from_pos_tiles(start - 1)
-		
-		if index == 0:
+	
+	for j in range(start , 0 , -1):
+		if pos_tiles[start].entropy >= pos_tiles[start - 1].entropy:
 			break
 		
-		swich_pos(start, index)
-		start = index
+		var index = start - 1
+		var entropy = pos_tiles[start - 1].entropy
 		
+		for i in range(start - 1, -1, -1):
+			if entropy > pos_tiles[i].entropy:
+				index = i + 1
+				break
+		
+		if index == 0 :
+			break
+		
+		var temp = pos_tiles[start]
+		pos_tiles[start] = pos_tiles[index]
+		pos_tiles[index] = temp
+		
+		start = index
+	
+	
+	
+
+func sort_pos_by_entropy_2(pos : wfc_position):
+	
+	# find pos in list
+	var start = pos_tiles.find(pos)
+	# var sta = pos.entropy
+	#var c = 0
+	
+	
+	var next = pos_tiles[min(start + 1, pos_tiles.size()-1)]
+	
+	if start_of_entropy[next.entropy] == start:
+		start_of_entropy[next.entropy] += 1
+	
+	
+	# check if next is lower 
+	for j in range(start , 0 , -1):
+		#c += 1
+		if pos_tiles[start].entropy >= pos_tiles[start - 1].entropy:
+			break
+		
+		var index = start - 1
+		var entropy = pos_tiles[start - 1].entropy
+		
+		var l = start_collapsable - 1
+		var r = start - 1
+		
+		# find first of same e
+		if  pos_tiles[start - 2].entropy < entropy:
+			index = start -1
+		else: 
+			for i in range(start_collapsable, index):
+				var check = (l + r)/2
+				if l+1 == r:
+					index = r
+					break
+				if pos_tiles[check].entropy == entropy:
+					r = check
+				else: 
+					l = check
+		# swap
+		var temp = pos_tiles[start]
+		
+		start_of_entropy[pos_tiles[index].entropy] += 1 
+		
+		pos_tiles[start] = pos_tiles[index]
+		pos_tiles[index] = temp
+		
+		start = index
+		if index == 0:
+			break
+	#s +=  str(c) + " (" +  str(sta) +") "
+	if start_of_entropy[pos.entropy] == -1:
+		start_of_entropy[pos.entropy] = start
+	#print(start_of_entropy)
+	#print(pos_tiles) 
 	
 func find_entropy_end_from_pos_tiles(index : int) -> int:
 	
@@ -513,19 +595,31 @@ func put_obj_to_map():
 		var cell_item_orientation = Basis(myQuaternion).get_orthogonal_index()
 		grid_map.set_cell_item(obj.pos.x + min_bound.x, obj.pos.y + min_bound.y, obj.pos.z + min_bound.z, obj_index, cell_item_orientation)
 		
-
+var s = ""
 func wave_function_collapse():
 	create_map()
-	
 	
 	while start_collapsable < pos_tiles.size():
 		var pos = select_next_cell()
 		if pos == null:
 			break
+		#s += "\n" + str(pos_tiles) +"\n"
 		
 		collapse_cell(pos)
-	
+		
+	# write_to_file_o(s)
 	put_obj_to_map()
+	
+func write_to_file_o(s):
+	
+	var __my_file := File.new()
+	var __my_text = s
 
+	__my_file.open("res://Test.txt", __my_file.WRITE)
+	assert(__my_file.is_open())
+	__my_file.store_string(__my_text)
+	__my_file.close()
 	
-	
+	pass
+
+

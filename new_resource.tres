@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/base_rule.tres" type="Resource" id=1]
+[ext_resource path="res://addons/Wave_Function_Collapse/Resources/wfc_object_list.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+object_list = [  ]
+rule_list = [ ExtResource( 1 ) ]

@@ -1,0 +1,218 @@
+[gd_resource type="Resource" load_steps=28 format=2]
+
+[ext_resource path="res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/base_rule.tres" type="Resource" id=1]
+[ext_resource path="res://addons/Wave_Function_Collapse/Resources/wfc_object_list.gd" type="Script" id=2]
+[ext_resource path="res://addons/Wave_Function_Collapse/Resources/wfc_object.gd" type="Script" id=3]
+[ext_resource path="res://GLB format/dirt_dirt.mesh" type="ArrayMesh" id=5]
+[ext_resource path="res://GLB format/wall-half_wall-half.mesh" type="ArrayMesh" id=9]
+[ext_resource path="res://GLB format/wall-narrow_wall-narrow.mesh" type="ArrayMesh" id=10]
+[ext_resource path="res://GLB format/wall-opening_wall-opening.mesh" type="ArrayMesh" id=11]
+[ext_resource path="res://GLB format/wall_wall.mesh" type="ArrayMesh" id=12]
+[ext_resource path="res://addons/Wave_Function_Collapse/Resources/ui_rule.gd" type="Script" id=14]
+
+[sub_resource type="Resource" id=2]
+resource_name = "block"
+script = ExtResource( 3 )
+name = "block"
+mesh = ExtResource( 5 )
+id = 0
+rotation = Vector3( 0, 0, 0 )
+up = [ 4 ]
+down = [ 3 ]
+forward = [ 3 ]
+backward = [ 3 ]
+right = [ 3 ]
+left = [ 3 ]
+
+[sub_resource type="Resource" id=6]
+resource_name = "pool-sein"
+script = ExtResource( 3 )
+name = "pool-sein"
+mesh = ExtResource( 9 )
+id = 1
+rotation = Vector3( 0, 0, 0 )
+up = [ 2 ]
+down = [ 1, 4 ]
+forward = [ 5 ]
+backward = [ 5 ]
+right = [ 2, 7 ]
+left = [ 3, 1 ]
+
+[sub_resource type="Resource" id=7]
+resource_name = "topelt_sein"
+script = ExtResource( 3 )
+name = "topelt_sein"
+mesh = ExtResource( 10 )
+id = 2
+rotation = Vector3( 0, 0, 0 )
+up = [ 2, 1 ]
+down = [ 4, 1 ]
+forward = [ 6 ]
+backward = [ 6 ]
+right = [ 2, 7 ]
+left = [ 2, 7 ]
+
+[sub_resource type="Resource" id=8]
+resource_name = "uks"
+script = ExtResource( 3 )
+name = "uks"
+mesh = ExtResource( 11 )
+id = 3
+rotation = Vector3( 0, 0, 0 )
+up = [ 2 ]
+down = [ 1 ]
+forward = [ 6 ]
+backward = [ 6 ]
+right = [ 2, 7 ]
+left = [ 2, 7 ]
+
+[sub_resource type="Resource" id=9]
+resource_name = "sein"
+script = ExtResource( 3 )
+name = "sein"
+mesh = ExtResource( 12 )
+id = 4
+rotation = Vector3( 0, 0, 0 )
+up = [ 2 ]
+down = [ 1, 4 ]
+forward = [ 5, 6, 8 ]
+backward = [ 5, 6, 8 ]
+right = [ 5, 6, 8 ]
+left = [ 5, 6, 8 ]
+
+[sub_resource type="Resource" id=18]
+resource_name = "air"
+script = ExtResource( 3 )
+name = "air"
+id = 5
+rotation = Vector3( 0, 0, 0 )
+up = [ 2, 4 ]
+down = [ 2 ]
+forward = [ 2 ]
+backward = [ 2 ]
+right = [ 2 ]
+left = [ 2 ]
+
+[sub_resource type="Resource" id=19]
+resource_name = "pool-sein_90"
+script = ExtResource( 3 )
+name = "pool-sein_90"
+mesh = ExtResource( 9 )
+id = 6
+rotation = Vector3( 0, 90, 0 )
+up = [ 2 ]
+down = [ 1, 4 ]
+forward = [ 2, 7 ]
+backward = [ 3, 1 ]
+right = [ 5 ]
+left = [ 5 ]
+
+[sub_resource type="Resource" id=20]
+resource_name = "pool-sein_180"
+script = ExtResource( 3 )
+name = "pool-sein_180"
+mesh = ExtResource( 9 )
+id = 7
+rotation = Vector3( 0, 180, 0 )
+up = [ 2 ]
+down = [ 1, 4 ]
+forward = [ 5 ]
+backward = [ 5 ]
+right = [ 3, 1 ]
+left = [ 2, 7 ]
+
+[sub_resource type="Resource" id=21]
+resource_name = "pool-sein_270"
+script = ExtResource( 3 )
+name = "pool-sein_270"
+mesh = ExtResource( 9 )
+id = 8
+rotation = Vector3( 0, 270, 0 )
+up = [ 2 ]
+down = [ 1, 4 ]
+forward = [ 3, 1 ]
+backward = [ 2, 7 ]
+right = [ 5 ]
+left = [ 5 ]
+
+[sub_resource type="Resource" id=22]
+resource_name = "topelt_sein_90"
+script = ExtResource( 3 )
+name = "topelt_sein_90"
+mesh = ExtResource( 10 )
+id = 9
+rotation = Vector3( 0, 90, 0 )
+up = [ 2 ]
+down = [ 4, 1 ]
+forward = [ 2, 7 ]
+backward = [ 2, 7 ]
+right = [ 6 ]
+left = [ 6 ]
+
+[sub_resource type="Resource" id=23]
+resource_name = "uks_90"
+script = ExtResource( 3 )
+name = "uks_90"
+mesh = ExtResource( 11 )
+id = 10
+rotation = Vector3( 0, 90, 0 )
+up = [ 2 ]
+down = [ 1 ]
+forward = [ 2, 7 ]
+backward = [ 2, 7 ]
+right = [ 6 ]
+left = [ 6 ]
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 14 )
+id = 2
+rule_name = "air"
+color = Color( 0.00784314, 0.952941, 1, 1 )
+special = false
+
+[sub_resource type="Resource" id=12]
+script = ExtResource( 14 )
+id = 3
+rule_name = "fixed"
+color = Color( 0.470896, 0.934938, 0.0603248, 1 )
+special = false
+
+[sub_resource type="Resource" id=13]
+script = ExtResource( 14 )
+id = 4
+rule_name = "põrand"
+color = Color( 0.847763, 0.377825, 0.228264, 1 )
+special = false
+
+[sub_resource type="Resource" id=14]
+script = ExtResource( 14 )
+id = 5
+rule_name = "sein"
+color = Color( 0.439216, 0.313726, 0.780392, 1 )
+special = false
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 14 )
+id = 6
+rule_name = "sein2"
+color = Color( 0.859086, 0.175404, 0.961952, 1 )
+special = false
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 14 )
+id = 7
+rule_name = "no_1"
+color = Color( 0.621225, 0.756011, 0.407612, 1 )
+special = true
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 14 )
+id = 8
+rule_name = "no_2"
+color = Color( 0.313578, 0.0717473, 0.278292, 1 )
+special = true
+
+[resource]
+script = ExtResource( 2 )
+object_list = [ SubResource( 2 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ]
+rule_list = [ ExtResource( 1 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ]
