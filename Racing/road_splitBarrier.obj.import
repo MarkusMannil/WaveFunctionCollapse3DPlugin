@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/road_splitBarrier.obj-649c961c82c9278f38c8c561a6d9658a.mesh"
+
+[deps]
+
+files=[ "res://.import/road_splitBarrier.obj-649c961c82c9278f38c8c561a6d9658a.mesh" ]
+
+source_file="res://Racing/road_splitBarrier.obj"
+dest_files=[ "res://.import/road_splitBarrier.obj-649c961c82c9278f38c8c561a6d9658a.mesh", "res://.import/road_splitBarrier.obj-649c961c82c9278f38c8c561a6d9658a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

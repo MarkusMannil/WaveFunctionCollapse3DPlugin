@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wallPaint_half.obj-9f77b94b8bc92bb4435243f7e6618a76.mesh"
+
+[deps]
+
+files=[ "res://.import/wallPaint_half.obj-9f77b94b8bc92bb4435243f7e6618a76.mesh" ]
+
+source_file="res://Castle/wallPaint_half.obj"
+dest_files=[ "res://.import/wallPaint_half.obj-9f77b94b8bc92bb4435243f7e6618a76.mesh", "res://.import/wallPaint_half.obj-9f77b94b8bc92bb4435243f7e6618a76.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

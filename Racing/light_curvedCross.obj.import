@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/light_curvedCross.obj-df6193a86b89ee6defe8f25317d2e640.mesh"
+
+[deps]
+
+files=[ "res://.import/light_curvedCross.obj-df6193a86b89ee6defe8f25317d2e640.mesh" ]
+
+source_file="res://Racing/light_curvedCross.obj"
+dest_files=[ "res://.import/light_curvedCross.obj-df6193a86b89ee6defe8f25317d2e640.mesh", "res://.import/light_curvedCross.obj-df6193a86b89ee6defe8f25317d2e640.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

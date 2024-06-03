@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/floor.obj-940a0ba59f95e828d5341e71325b187f.mesh"
+
+[deps]
+
+files=[ "res://.import/floor.obj-940a0ba59f95e828d5341e71325b187f.mesh" ]
+
+source_file="res://Castle/floor.obj"
+dest_files=[ "res://.import/floor.obj-940a0ba59f95e828d5341e71325b187f.mesh", "res://.import/floor.obj-940a0ba59f95e828d5341e71325b187f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

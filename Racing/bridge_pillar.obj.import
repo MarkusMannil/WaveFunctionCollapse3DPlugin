@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/bridge_pillar.obj-80e7389a6889f529b26c9866cf0488bc.mesh"
+
+[deps]
+
+files=[ "res://.import/bridge_pillar.obj-80e7389a6889f529b26c9866cf0488bc.mesh" ]
+
+source_file="res://Racing/bridge_pillar.obj"
+dest_files=[ "res://.import/bridge_pillar.obj-80e7389a6889f529b26c9866cf0488bc.mesh", "res://.import/bridge_pillar.obj-80e7389a6889f529b26c9866cf0488bc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

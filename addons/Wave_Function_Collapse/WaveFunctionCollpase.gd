@@ -41,6 +41,13 @@ var start_of_entropy : Array
 var nan_pos : wfc_position
 
 var error : bool = false 
+
+export var demo : bool = false
+
+export var fill_base_with_obj_index = -1
+
+export var fill_top_with_obj_index = -1
+
 # set up warnings 
 func _init():
 	connect("child_entered_tree",self, "_on_wave_function_collapse_child_entered_tree")
@@ -67,6 +74,10 @@ func _on_wave_function_collapse_child_exiting_tree(node):
 
 func get_wfc_resource():
 	return objects_resource
+
+func _process(delta):
+	if demo:
+		pass
 
 
 func ready_grid_map():
@@ -112,53 +123,58 @@ func get_objects():
 
 func get_object_adj(object):
 	
+	
 	var obj_rules = object.get_rule_as_int()
 	
 	var index = object.id
 	
 	var special = objects_resource.special_rules
 	
+	print(dec2bin(special))
+	print(object.id ," id")
+	
+	
 	for i in range(wfc_objects.size()):
 		# i- th object's rules
 		
 		var obj = wfc_objects[i]
-		
+		print(obj.id ," id2")
 		var rule = obj.get_rule_as_int()
 		
 		if(rule[0] & obj_rules[1] != 0):
-			
-			if rule[0] & obj_rules[1] & special != 0:
-				continue 
+			if (rule[0] & obj_rules[1]) & special != 0:
+				pass
 			else:
 				adjacency_objects[index][1] += 1 << i
 			
 		if(rule[1] & obj_rules[0] != 0):
-			if rule[0] & obj_rules[1] & special != 0:
-				continue 
+			if (rule[0] & obj_rules[1]) & special != 0:
+				pass
 			else:
 				adjacency_objects[index][0] += 1 << i
 			
 		if(rule[2] & obj_rules[3] != 0):
-			if rule[2] & obj_rules[3] & special != 0:
-				continue 
+			if (rule[2] & obj_rules[3]) & special != 0:
+				pass 
 			else:
 				adjacency_objects[index][3] += 1 << i
-			
+				
+	
 		if(rule[3] & obj_rules[2] != 0):
-			if rule[3] & obj_rules[2] & special != 0:
-				continue 
+			if (rule[3] & obj_rules[2]) & special != 0:
+				pass 
 			else:
 				adjacency_objects[index][2] += 1 << i
 			
 		if(rule[4] & obj_rules[5] != 0):
-			if rule[4] & obj_rules[5] & special != 0:
-				continue 
+			if (rule[4] & obj_rules[5]) & special != 0:
+				pass 
 			else:
 				adjacency_objects[index][5] += 1 << i
 			
 		if(rule[5] & obj_rules[4] != 0):
-			if rule[5] & obj_rules[4] & special != 0:
-				continue 
+			if (rule[5] & obj_rules[4]) & special != 0:
+				pass 
 			else:
 				adjacency_objects[index][4] += 1 << i
 	
@@ -328,6 +344,7 @@ func create_map():
 	
 	nan_pos = wfc_position.new(-1, -1,Vector3(-1,-1,-1),-1)
 	pos_tiles = []
+	var pos_tiles_filled = []
 	start_collapsable = 0
 	var index = 0
 	all = int(pow(2,wfc_objects.size())-1)
@@ -344,10 +361,26 @@ func create_map():
 		
 		if(pos.pos == start_pos):
 			start = pos
-			
-		
-		
+	
+	
+	if fill_base_with_obj_index != -1 && 2 < max_bound.y - min_bound.y:
+		for pos in pos_tiles:
+			if pos.pos.y == 0:
+				pos.bit_value = 1 << fill_base_with_obj_index
+				pos.entropy = 1
+				
+	if fill_top_with_obj_index != -1 && 2 < max_bound.y - min_bound.y:
+		for pos in pos_tiles:
+			if pos.pos.y == max_bound.y - min_bound.y -1:
+				pos.bit_value = 1 << fill_top_with_obj_index
+				pos.entropy = 1
+	
 	pos_tiles.shuffle()
+	for pos in pos_tiles:
+		if pos.entropy == 1:
+			propagate_map(pos) 
+
+	
 	
 	if start != null:
 		swich_pos(0, pos_tiles.find(start))
@@ -418,6 +451,17 @@ func vector_to_index(vec : Vector3):
 func select_next_cell():
 	
 	while pos_tiles[start_collapsable].entropy <= 1:
+		
+		if demo :
+			var pos =  pos_tiles[start_collapsable]
+			var obj_index = bit_to_index(pos.bit_value)
+			if obj_index == -1:
+				pass			
+			else:
+				var myQuaternion = Quat(Vector3(0, 1, 0.0), deg2rad(wfc_objects[obj_index].rotation.y))
+				var cell_item_orientation = Basis(myQuaternion).get_orthogonal_index()
+				grid_map.set_cell_item(pos.pos.x + min_bound.x, pos.pos.y + min_bound.y, pos.pos.z + min_bound.z, obj_index, cell_item_orientation)
+
 		start_collapsable += 1
 		if start_collapsable == pos_tiles.size() :
 			return null
@@ -431,6 +475,16 @@ func collapse_cell(pos : wfc_position):
 	pos.entropy = 1
 	
 	start_collapsable += 1
+	
+	if demo :
+		var obj_index = bit_to_index(pos.bit_value)
+		if obj_index == -1:
+			pass			
+		else:
+			var myQuaternion = Quat(Vector3(0, 1, 0.0), deg2rad(wfc_objects[obj_index].rotation.y))
+			var cell_item_orientation = Basis(myQuaternion).get_orthogonal_index()
+			grid_map.set_cell_item(pos.pos.x + min_bound.x, pos.pos.y + min_bound.y, pos.pos.z + min_bound.z, obj_index, cell_item_orientation)
+
 	
 	
 	propagate_map(pos)
@@ -504,9 +558,6 @@ func sort_pos_by_entropy(pos : wfc_position):
 		pos_tiles[index] = temp
 		
 		start = index
-	
-	
-	
 
 func sort_pos_by_entropy_2(pos : wfc_position):
 	
@@ -515,12 +566,10 @@ func sort_pos_by_entropy_2(pos : wfc_position):
 	# var sta = pos.entropy
 	#var c = 0
 	
+	#s += "\n start sorting at " + str(start) + " " + str(pos.entropy)
+	#s+= "\n " + str(pos_tiles)
 	
 	var next = pos_tiles[min(start + 1, pos_tiles.size()-1)]
-	
-	if start_of_entropy[next.entropy] == start:
-		start_of_entropy[next.entropy] += 1
-	
 	
 	# check if next is lower 
 	for j in range(start , 0 , -1):
@@ -550,17 +599,15 @@ func sort_pos_by_entropy_2(pos : wfc_position):
 		# swap
 		var temp = pos_tiles[start]
 		
-		start_of_entropy[pos_tiles[index].entropy] += 1 
-		
 		pos_tiles[start] = pos_tiles[index]
 		pos_tiles[index] = temp
+		#s += "\n " + str(pos_tiles)
 		
 		start = index
 		if index == 0:
 			break
 	#s +=  str(c) + " (" +  str(sta) +") "
-	if start_of_entropy[pos.entropy] == -1:
-		start_of_entropy[pos.entropy] = start
+
 	#print(start_of_entropy)
 	#print(pos_tiles) 
 	
@@ -606,8 +653,10 @@ func wave_function_collapse():
 		#s += "\n" + str(pos_tiles) +"\n"
 		
 		collapse_cell(pos)
+		if demo :
+			yield(get_tree().create_timer(0), "timeout")
 		
-	# write_to_file_o(s)
+	#write_to_file_o(s)
 	put_obj_to_map()
 	
 func write_to_file_o(s):
@@ -621,5 +670,8 @@ func write_to_file_o(s):
 	__my_file.close()
 	
 	pass
+
+
+
 
 

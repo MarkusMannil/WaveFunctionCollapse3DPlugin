@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wallPaint_gate.obj-ff02cd7e781f8edaf04a34790dd0a29b.mesh"
+
+[deps]
+
+files=[ "res://.import/wallPaint_gate.obj-ff02cd7e781f8edaf04a34790dd0a29b.mesh" ]
+
+source_file="res://Castle/wallPaint_gate.obj"
+dest_files=[ "res://.import/wallPaint_gate.obj-ff02cd7e781f8edaf04a34790dd0a29b.mesh", "res://.import/wallPaint_gate.obj-ff02cd7e781f8edaf04a34790dd0a29b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

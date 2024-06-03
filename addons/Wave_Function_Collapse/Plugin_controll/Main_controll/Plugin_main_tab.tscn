@@ -231,7 +231,7 @@ margin_right = -120.0
 margin_bottom = -359.456
 window_title = "Open a File"
 mode = 0
-filters = PoolStringArray( "*.mesh ; Mesh file" )
+filters = PoolStringArray( "*.mesh ; Mesh file", "*.obj ; Obj file" )
 
 [node name="Label" type="Label" parent="Main_Panel/Add_object_panel"]
 visible = false

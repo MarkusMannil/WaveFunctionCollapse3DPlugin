@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/light_curved.obj-f3acb0cfb4b73a544f8c01764d832329.mesh"
+
+[deps]
+
+files=[ "res://.import/light_curved.obj-f3acb0cfb4b73a544f8c01764d832329.mesh" ]
+
+source_file="res://Racing/light_curved.obj"
+dest_files=[ "res://.import/light_curved.obj-f3acb0cfb4b73a544f8c01764d832329.mesh", "res://.import/light_curved.obj-f3acb0cfb4b73a544f8c01764d832329.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

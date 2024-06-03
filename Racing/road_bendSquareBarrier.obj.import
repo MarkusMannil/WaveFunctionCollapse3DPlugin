@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/road_bendSquareBarrier.obj-706edb279929bcd2f1a3267a0361980f.mesh"
+
+[deps]
+
+files=[ "res://.import/road_bendSquareBarrier.obj-706edb279929bcd2f1a3267a0361980f.mesh" ]
+
+source_file="res://Racing/road_bendSquareBarrier.obj"
+dest_files=[ "res://.import/road_bendSquareBarrier.obj-706edb279929bcd2f1a3267a0361980f.mesh", "res://.import/road_bendSquareBarrier.obj-706edb279929bcd2f1a3267a0361980f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

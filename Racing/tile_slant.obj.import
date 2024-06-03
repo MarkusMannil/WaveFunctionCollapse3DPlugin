@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/tile_slant.obj-3655a78acda8e169d33f680ad1d6a679.mesh"
+
+[deps]
+
+files=[ "res://.import/tile_slant.obj-3655a78acda8e169d33f680ad1d6a679.mesh" ]
+
+source_file="res://Racing/tile_slant.obj"
+dest_files=[ "res://.import/tile_slant.obj-3655a78acda8e169d33f680ad1d6a679.mesh", "res://.import/tile_slant.obj-3655a78acda8e169d33f680ad1d6a679.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

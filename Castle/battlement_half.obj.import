@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/battlement_half.obj-6378654ceb4a787f7312b8bb15ab8a2a.mesh"
+
+[deps]
+
+files=[ "res://.import/battlement_half.obj-6378654ceb4a787f7312b8bb15ab8a2a.mesh" ]
+
+source_file="res://Castle/battlement_half.obj"
+dest_files=[ "res://.import/battlement_half.obj-6378654ceb4a787f7312b8bb15ab8a2a.mesh", "res://.import/battlement_half.obj-6378654ceb4a787f7312b8bb15ab8a2a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

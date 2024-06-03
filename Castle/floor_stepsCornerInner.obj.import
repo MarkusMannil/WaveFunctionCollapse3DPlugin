@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/floor_stepsCornerInner.obj-7f461392e85aa884605565f988d9a761.mesh"
+
+[deps]
+
+files=[ "res://.import/floor_stepsCornerInner.obj-7f461392e85aa884605565f988d9a761.mesh" ]
+
+source_file="res://Castle/floor_stepsCornerInner.obj"
+dest_files=[ "res://.import/floor_stepsCornerInner.obj-7f461392e85aa884605565f988d9a761.mesh", "res://.import/floor_stepsCornerInner.obj-7f461392e85aa884605565f988d9a761.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

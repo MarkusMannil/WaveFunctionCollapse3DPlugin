@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wallFortifiedPaint.obj-f6737b685f84c2afca080e879f8274a0.mesh"
+
+[deps]
+
+files=[ "res://.import/wallFortifiedPaint.obj-f6737b685f84c2afca080e879f8274a0.mesh" ]
+
+source_file="res://Castle/wallFortifiedPaint.obj"
+dest_files=[ "res://.import/wallFortifiedPaint.obj-f6737b685f84c2afca080e879f8274a0.mesh", "res://.import/wallFortifiedPaint.obj-f6737b685f84c2afca080e879f8274a0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

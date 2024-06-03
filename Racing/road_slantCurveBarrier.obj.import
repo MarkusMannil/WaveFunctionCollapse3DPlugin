@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/road_slantCurveBarrier.obj-404ef8aa6b074ebb23691603510dc60b.mesh"
+
+[deps]
+
+files=[ "res://.import/road_slantCurveBarrier.obj-404ef8aa6b074ebb23691603510dc60b.mesh" ]
+
+source_file="res://Racing/road_slantCurveBarrier.obj"
+dest_files=[ "res://.import/road_slantCurveBarrier.obj-404ef8aa6b074ebb23691603510dc60b.mesh", "res://.import/road_slantCurveBarrier.obj-404ef8aa6b074ebb23691603510dc60b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

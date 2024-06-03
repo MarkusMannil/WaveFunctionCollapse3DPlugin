@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/road_bendSidewalk.obj-4d605562360a326c634853fbb88c6b2b.mesh"
+
+[deps]
+
+files=[ "res://.import/road_bendSidewalk.obj-4d605562360a326c634853fbb88c6b2b.mesh" ]
+
+source_file="res://Racing/road_bendSidewalk.obj"
+dest_files=[ "res://.import/road_bendSidewalk.obj-4d605562360a326c634853fbb88c6b2b.mesh", "res://.import/road_bendSidewalk.obj-4d605562360a326c634853fbb88c6b2b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

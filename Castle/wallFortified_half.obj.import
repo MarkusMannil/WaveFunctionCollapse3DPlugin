@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wallFortified_half.obj-af3f501df7ffd2131d2b55f4376f33ff.mesh"
+
+[deps]
+
+files=[ "res://.import/wallFortified_half.obj-af3f501df7ffd2131d2b55f4376f33ff.mesh" ]
+
+source_file="res://Castle/wallFortified_half.obj"
+dest_files=[ "res://.import/wallFortified_half.obj-af3f501df7ffd2131d2b55f4376f33ff.mesh", "res://.import/wallFortified_half.obj-af3f501df7ffd2131d2b55f4376f33ff.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

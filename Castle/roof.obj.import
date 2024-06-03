@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/roof.obj-4723464dbac58a81e8f5752cecd59cda.mesh"
+
+[deps]
+
+files=[ "res://.import/roof.obj-4723464dbac58a81e8f5752cecd59cda.mesh" ]
+
+source_file="res://Castle/roof.obj"
+dest_files=[ "res://.import/roof.obj-4723464dbac58a81e8f5752cecd59cda.mesh", "res://.import/roof.obj-4723464dbac58a81e8f5752cecd59cda.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

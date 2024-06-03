@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/road_square.obj-8f8f6ce56e23c0a096e7b65afd7a324d.mesh"
+
+[deps]
+
+files=[ "res://.import/road_square.obj-8f8f6ce56e23c0a096e7b65afd7a324d.mesh" ]
+
+source_file="res://Racing/road_square.obj"
+dest_files=[ "res://.import/road_square.obj-8f8f6ce56e23c0a096e7b65afd7a324d.mesh", "res://.import/road_square.obj-8f8f6ce56e23c0a096e7b65afd7a324d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/battlement_cornerInner.obj-b331e060672af88ccb7e8de6937e4e49.mesh"
+
+[deps]
+
+files=[ "res://.import/battlement_cornerInner.obj-b331e060672af88ccb7e8de6937e4e49.mesh" ]
+
+source_file="res://Castle/battlement_cornerInner.obj"
+dest_files=[ "res://.import/battlement_cornerInner.obj-b331e060672af88ccb7e8de6937e4e49.mesh", "res://.import/battlement_cornerInner.obj-b331e060672af88ccb7e8de6937e4e49.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286
