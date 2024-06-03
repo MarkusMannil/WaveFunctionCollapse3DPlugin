@@ -9,6 +9,7 @@ export var speed : float = 1
 
 var angle = 0
 
+signal spin_done
 
 export var on = true
 # Called when the node enters the scene tree for the first time.
@@ -22,7 +23,10 @@ func _process(delta):
 		return
 	angle += delta * speed
 	
-	
+	if angle >= 2 * PI:
+		emit_signal("spin_done")
+		on = false
+		angle = 0
 	
 	var x =  radius *  sin(angle)
 	var y =  radius *  cos(angle)
@@ -33,3 +37,6 @@ func _process(delta):
 	
 	
 	pass
+
+func set_on_on():
+	on = true

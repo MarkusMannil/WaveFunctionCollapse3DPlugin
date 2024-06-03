@@ -216,3 +216,9 @@ special = true
 script = ExtResource( 2 )
 object_list = [ SubResource( 2 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ]
 rule_list = [ ExtResource( 1 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ]
+camera_settings = {
+"angle": -21,
+"dist": 2,
+"fov": 35,
+"height": 1
+}

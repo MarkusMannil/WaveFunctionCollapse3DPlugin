@@ -48,6 +48,8 @@ export var fill_base_with_obj_index = -1
 
 export var fill_top_with_obj_index = -1
 
+signal demo_end
+
 # set up warnings 
 func _init():
 	connect("child_entered_tree",self, "_on_wave_function_collapse_child_entered_tree")
@@ -130,15 +132,14 @@ func get_object_adj(object):
 	
 	var special = objects_resource.special_rules
 	
-	print(dec2bin(special))
-	print(object.id ," id")
+	
 	
 	
 	for i in range(wfc_objects.size()):
 		# i- th object's rules
 		
 		var obj = wfc_objects[i]
-		print(obj.id ," id2")
+		
 		var rule = obj.get_rule_as_int()
 		
 		if(rule[0] & obj_rules[1] != 0):
@@ -658,6 +659,8 @@ func wave_function_collapse():
 		
 	#write_to_file_o(s)
 	put_obj_to_map()
+	if demo:
+		emit_signal("demo_end")
 	
 func write_to_file_o(s):
 	

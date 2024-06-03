@@ -1,8 +1,10 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Castle/wall.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Castle/wall_gate.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Castle/floor.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://Demo_controller.gd" type="Script" id=4]
+[ext_resource path="res://camera spinn.gd" type="Script" id=5]
 [ext_resource path="res://Castle/roof_edge.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://Castle/roof.obj" type="ArrayMesh" id=8]
 [ext_resource path="res://Castle/roof_corner.obj" type="ArrayMesh" id=9]
@@ -377,6 +379,7 @@ item/15/shapes = [  ]
 item/15/navmesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 4 )
 
 [node name="wave_function_collapse" type="Node" parent="."]
 script = ExtResource( 10 )
@@ -401,9 +404,12 @@ __meta__ = {
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.644324, 0.764753, 0, -0.764753, 0.644324, 12.125, 25, 31.895 )
 fov = 40.1
+script = ExtResource( 5 )
+center = Vector3( 10, 25, 10 )
+radius = 20.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( -0.220323, -0.659437, -0.71875, -0.910432, -0.125449, 0.394178, -0.350102, 0.741219, -0.572733, 27.6754, 14.7041, 16.1863 )
+transform = Transform( 0.758238, 0.637495, 0.136655, -0.470323, 0.38967, 0.791804, 0.45152, -0.664648, 0.595292, 27.6754, -8.21676, 16.1863 )
 shadow_enabled = true
 shadow_contact = 1.0
 directional_shadow_normal_bias = 0.573

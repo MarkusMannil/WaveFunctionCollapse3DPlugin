@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://addons/Wave_Function_Collapse/WaveFunctionCollpase.gd" type="Script" id=1]
 [ext_resource path="res://addons/Wave_Function_Collapse/Resources/ui_rule.gd" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Racing/road_crossroad.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://Racing/road_intersection.obj" type="ArrayMesh" id=8]
 [ext_resource path="res://Racing/road_bend.obj" type="ArrayMesh" id=9]
+[ext_resource path="res://Demo_controller.gd" type="Script" id=10]
+[ext_resource path="res://camera spinn.gd" type="Script" id=11]
 [ext_resource path="res://Racing/tile_high.obj" type="ArrayMesh" id=12]
 [ext_resource path="res://Racing/road_straight.obj" type="ArrayMesh" id=13]
 
@@ -509,6 +511,7 @@ item/22/shapes = [  ]
 item/22/navmesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 10 )
 
 [node name="wave_function_collapse" type="Node" parent="."]
 script = ExtResource( 1 )
@@ -516,7 +519,6 @@ objects_resource = SubResource( 9 )
 object_size = Vector3( 1, 0.25, 1 )
 max_bound = Vector3( 40, 4, 40 )
 demo = true
-fill_base_with_obj_index = 5
 
 [node name="GridMap" type="GridMap" parent="wave_function_collapse"]
 mesh_library = SubResource( 10 )
@@ -532,6 +534,9 @@ __meta__ = {
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.644324, 0.764753, 0, -0.764753, 0.644324, 19.125, 25, 39.895 )
 fov = 79.1
+script = ExtResource( 11 )
+center = Vector3( 20, 15, 20 )
+radius = 20.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.220323, -0.659437, -0.71875, -0.910432, -0.125449, 0.394178, -0.350102, 0.741219, -0.572733, 27.6754, 14.7041, 16.1863 )
