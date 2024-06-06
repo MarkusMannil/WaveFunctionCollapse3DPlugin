@@ -9,7 +9,7 @@
 [ext_resource path="res://addons/Wave_Function_Collapse/Resources/wfc_object_list.gd" type="Script" id=7]
 [ext_resource path="res://addons/Wave_Function_Collapse/WaveFunctionCollpase.gd" type="Script" id=8]
 [ext_resource path="res://camera spinn.gd" type="Script" id=9]
-[ext_resource path="res://Demo_controller.gd" type="Script" id=10]
+[ext_resource path="res://demo_controller.gd" type="Script" id=10]
 
 [sub_resource type="Resource" id=1]
 resource_name = "Block"
