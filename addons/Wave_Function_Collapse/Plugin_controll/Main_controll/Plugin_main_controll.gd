@@ -99,9 +99,14 @@ func _on_Edit_pressed():
 	$"%Mesh_preview".set_object_resource(selected_object.object_resource)
 	_on_Front_pressed()
 	
+	$"%Rotate_90_2".pressed = selected_object.object_resource.r_90
+	$"%Rotate_180_2".pressed = selected_object.object_resource.r_180
+	$"%Rotate_270_2".pressed = selected_object.object_resource.r_270
+	
 	wfc_node.get_objects()
 	
 	load_rules_of_side(0)
+	
 	
 	$"%Main_Panel".visible = false
 	$"%Edit_panel".visible = true
@@ -112,7 +117,6 @@ func _on_Back_pressed():
 	$"%Edit_rule_panel".visible = false
 	$"%Camera_settings".visible = false
 	ResourceSaver.save(wfc_list.resource_path, wfc_list)
-	print(wfc_list.camera_settings)
 	pass # Replace with function body.
 
 
@@ -637,3 +641,68 @@ func load_camera_settings():
 	$"%Dist_spin".value = dist
 	$"%angle_spin".value = angle
 	pass
+
+
+func _on_Rotation_pressed():
+	$"%Rotation_panel".visible = true
+	pass # Replace with function body.
+
+func _on_Close_allow_rot_pressed():
+	selected_object.object_resource.r_90 = $"%Rotate_90_2".pressed
+	selected_object.object_resource.r_180 = $"%Rotate_180_2".pressed
+	selected_object.object_resource.r_270 = $"%Rotate_270_2".pressed
+	
+	$"%Rotation_panel".visible = false
+	update_rules()
+
+
+func _on_Rotation2_pressed():
+	$"%Rotation options".clear()
+	$"%Rotation options".add_item("0", 0)
+	$"%Rotation options".add_item("90", 1)
+	$"%Rotation options".add_item("180", 2)
+	$"%Rotation options".add_item("270", 3)
+	
+	var obj_y_r = selected_object.object_resource.rotation.y
+	print(obj_y_r)
+	
+	
+	match int(obj_y_r):
+		0: 
+			$"%Rotation options".select(0)
+			print("ooooooooo")
+		90: 
+			$"%Rotation options".select(1)
+			print("iiiiiiiiii")
+		180: 
+			$"%Rotation options".select(2)
+			print("kkkkkkkkkkkk")
+		270:
+			$"%Rotation options".select(3)
+			print("vvvvvvvvvvvvv")
+	
+	$"%Object_rotation".visible = true 
+
+
+func _on_save_rot_option_pressed():
+	var sel = $"%Rotation options".get_selected_id()
+	var v = selected_object.object_resource.rotation
+	
+	print(v)
+	
+	match sel:
+		0: 
+			selected_object.object_resource.rotation = Vector3(v.x, 0 ,v.z)
+		1:
+			selected_object.object_resource.rotation = Vector3(v.x, 90 ,v.z)
+		2:
+			selected_object.object_resource.rotation = Vector3(v.x, 180 ,v.z)
+		3:
+			selected_object.object_resource.rotation = Vector3(v.x, 270 ,v.z)
+	
+	print(v)
+	print(sel)
+	
+	$"%Mesh_preview".rotation_changed()
+	$"%Object_rotation".visible = false
+	pass # Replace with function body.

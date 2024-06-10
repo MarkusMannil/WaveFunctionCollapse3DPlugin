@@ -98,14 +98,56 @@ func get_objects():
 		obj.id = count 
 		add_mesh_to_mesh_lib(obj.mesh)
 		count += 1 
+		if obj.r_90:
+			var new_obj = duplicate_wfc_obj(obj)
+			new_obj.rotation = obj.rotation + Vector3(0,90,0)
+			new_obj.rotate_rules_y90()
+			new_obj.id = count
+			count+= 1
+			wfc_objects.append(new_obj)
+			add_mesh_to_mesh_lib(obj.mesh)
+			
+		if obj.r_180:
+			var new_obj = duplicate_wfc_obj(obj)
+			new_obj.rotation = obj.rotation + Vector3(0,180,0)
+			new_obj.rotate_rules_y180()
+			new_obj.id = count
+			count+= 1
+			wfc_objects.append(new_obj)
+			add_mesh_to_mesh_lib(obj.mesh)
+			
+		if obj.r_270:
+			var new_obj = duplicate_wfc_obj(obj)
+			new_obj.rotation = obj.rotation + Vector3(0,270,0)
+			new_obj.rotate_rules_y270()
+			new_obj.id = count
+			count+= 1
+			wfc_objects.append(new_obj)
+			add_mesh_to_mesh_lib(obj.mesh)
 	
 	adjacency_objects = []
 	objects_resource.update_special_rules()
 	for obj in wfc_objects:
 		adjacency_objects.append([0,0,0,0,0,0])
 		get_object_adj(obj)
-	
+		
 	return false
+
+func duplicate_wfc_obj(obj :WFC_object):
+	
+	var new = WFC_object.new()
+	
+	new.mesh = obj.mesh
+	new.rotation = obj.rotation
+	
+	new.up = obj.up.duplicate()
+	new.down = obj.down.duplicate()
+	new.right = obj.right.duplicate()
+	new.left = obj.left.duplicate()
+	new.forward = obj.forward.duplicate()
+	new.backward = obj.backward.duplicate()
+	
+	return new
 	
 
 func get_object_adj(object):
@@ -124,40 +166,27 @@ func get_object_adj(object):
 		var rule = obj.get_rule_as_int()
 		
 		if(rule[0] & obj_rules[1] != 0):
-			
-			if rule[0] & obj_rules[1] & special != 0:
-				continue 
-			else:
+			if rule[0] & obj_rules[1] & special == 0:
 				adjacency_objects[index][1] += 1 << i
 			
 		if(rule[1] & obj_rules[0] != 0):
-			if rule[0] & obj_rules[1] & special != 0:
-				continue 
-			else:
+			if rule[1] & obj_rules[0] & special == 0:
 				adjacency_objects[index][0] += 1 << i
 			
 		if(rule[2] & obj_rules[3] != 0):
-			if rule[2] & obj_rules[3] & special != 0:
-				continue 
-			else:
+			if rule[2] & obj_rules[3] & special == 0:
 				adjacency_objects[index][3] += 1 << i
 			
 		if(rule[3] & obj_rules[2] != 0):
-			if rule[3] & obj_rules[2] & special != 0:
-				continue 
-			else:
+			if rule[3] & obj_rules[2] & special == 0:
 				adjacency_objects[index][2] += 1 << i
 			
 		if(rule[4] & obj_rules[5] != 0):
-			if rule[4] & obj_rules[5] & special != 0:
-				continue 
-			else:
+			if rule[4] & obj_rules[5] & special == 0:
 				adjacency_objects[index][5] += 1 << i
 			
 		if(rule[5] & obj_rules[4] != 0):
-			if rule[5] & obj_rules[4] & special != 0:
-				continue 
-			else:
+			if rule[5] & obj_rules[4] & special == 0:
 				adjacency_objects[index][4] += 1 << i
 	
 func get_adj_of_object_side(obj_id, obj_side):
@@ -171,7 +200,8 @@ func get_adj_of_object_side(obj_id, obj_side):
 	var list = []
 	var temp 
 	var count = wfc_objects.size()
- 
+	
+	
 	while(count >= 0): 
 		temp = decimal_value >> count 
 		if(temp & 1): 
@@ -285,7 +315,7 @@ func get_entropy(mask:int):
 	var n = mask
 	# if count zero then return high number
 	if(mask == 0):
-		return 0
+		return 1
 		
 	while n > 0:
 		n &= (n-1)
@@ -322,10 +352,12 @@ func dec2bin(decimal_value : int):
 	return binary_string
 
 
+
 func create_map():
 	
 	nan_pos = wfc_position.new(-1, -1,Vector3(-1,-1,-1),-1)
 	pos_tiles = []
+	
 	start_collapsable = 0
 	var index = 0
 	all = int(pow(2,wfc_objects.size())-1)
@@ -339,15 +371,14 @@ func create_map():
 	
 	for pos in pos_tiles:
 		add_neighbours_to_pos(pos)
-		
 		if(pos.pos == start_pos):
 			start = pos
-		
-		
+			
 	pos_tiles.shuffle()
 	
 	if start != null:
 		swich_pos(0, pos_tiles.find(start))
+	
 	pass
 
 func add_neighbours_to_pos(pos : wfc_position):
@@ -415,11 +446,15 @@ func select_next_cell():
 
 func collapse_cell(pos : wfc_position):
 	
+	var pos_i = pos_tiles.find(pos)
+	
 	pos.bit_value = get_random_active_bit(pos.bit_value)
 	
 	pos.entropy = 1
 	
 	start_collapsable += 1
+	
+	
 	
 	propagate_map(pos)
 
@@ -456,43 +491,52 @@ func propagate_pos_by_pos(col : wfc_position, pos : wfc_position):
 	
 	var new = get_rul & pos.bit_value
 	# if calculated is different than current change pos data and return true for checking children else do nothing
-	if pos.bit_value != new :
+	if pos.bit_value != new:
 		pos.bit_value = new 
 		pos.entropy = get_entropy(new)
 		sort_pos_by_entropy(pos)
+		
 		return true
 	else:
 		return false
 
 func sort_pos_by_entropy(pos : wfc_position):
-	
-	# find pos in list
-	
 	var start = pos_tiles.find(pos)
-	
+	var next = pos_tiles[min(start + 1, pos_tiles.size()-1)]
 	# check if next is lower 
-	while pos_tiles[start].entropy < pos_tiles[start - 1].entropy:
-		
-		var index = find_entropy_end_from_pos_tiles(start - 1)  #find_entropy_end_from_pos_tiles(start - 1)
-		
-		if index == 0:
+	for j in range(start , 0 , -1):
+		#c += 1
+		if pos_tiles[start].entropy >= pos_tiles[start - 1].entropy:
 			break
 		
-		swich_pos(start, index)
+		var index = start - 1
+		var entropy = pos_tiles[start - 1].entropy
+		
+		var l = start_collapsable - 1
+		var r = start - 1
+		
+		# find first of same e
+		if  pos_tiles[start - 2].entropy < entropy:
+			index = start -1
+		else: 
+			for i in range(start_collapsable, index):
+				var check = (l + r)/2
+				if l+1 == r:
+					index = r
+					break
+				if pos_tiles[check].entropy == entropy:
+					r = check
+				else: 
+					l = check
+		# swap
+		var temp = pos_tiles[start]
+		
+		pos_tiles[start] = pos_tiles[index]
+		pos_tiles[index] = temp
+		
 		start = index
-		
-	
-func find_entropy_end_from_pos_tiles(index : int) -> int:
-	
-	var entropy = pos_tiles[index].entropy
-	
-	while pos_tiles[index].entropy == entropy:
-		
 		if index == 0:
-			return 0
-		index -= 1
-		
-	return index + 1
+			break
 
 
 func swich_pos(index_1 : int, index_2 : int):
@@ -522,8 +566,9 @@ func wave_function_collapse():
 		var pos = select_next_cell()
 		if pos == null:
 			break
-		
+
 		collapse_cell(pos)
+	
 	
 	put_obj_to_map()
 

@@ -7,7 +7,7 @@ export(Array, Resource) var object_list : Array  = []
 
 export(Array, Resource) var rule_list : Array  = []
 
-var camera_settings  :Dictionary
+export var camera_settings  :Dictionary
 
 var special_rules : int = 0 
 

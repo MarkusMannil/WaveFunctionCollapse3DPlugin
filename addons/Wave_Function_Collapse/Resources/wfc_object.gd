@@ -25,6 +25,13 @@ export(Array) var right = Array()
 
 export(Array) var left = Array()
 
+export(bool) var r_90 = false
+export(bool) var r_180 = false
+export(bool) var r_270 = false
+export(bool) var r_flip = false
+
+
+
 func _init():
 	up = []
 	down = []
@@ -223,3 +230,9 @@ func rotate_rules_y270():
 	
 	pass
 
+func flip_rules():
+	var temp_up = up
+	up = down 
+	down = temp_up
+	
+	

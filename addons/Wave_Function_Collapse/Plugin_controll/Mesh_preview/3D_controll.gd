@@ -57,11 +57,12 @@ func select():
 	border.visible = true
 	base.set_obj_active(self)
 
-
 func deselect():
 	border.visible = false
 	base.set_obj_inactive()
 
+func rotation_changed():
+	$"%MeshInstance".rotation_degrees = object_resource.rotation
 
 func _on_Panel_gui_input(event):
 	if clicable and event is InputEventMouseButton:

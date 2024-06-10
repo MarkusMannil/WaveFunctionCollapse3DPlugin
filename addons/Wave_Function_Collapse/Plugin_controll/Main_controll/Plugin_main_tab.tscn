@@ -231,7 +231,7 @@ margin_right = -120.0
 margin_bottom = -359.456
 window_title = "Open a File"
 mode = 0
-filters = PoolStringArray( "*.mesh ; Mesh file" )
+filters = PoolStringArray( "*.mesh ; Mesh file", "*.obj ; Object file" )
 
 [node name="Label" type="Label" parent="Main_Panel/Add_object_panel"]
 visible = false
@@ -587,81 +587,70 @@ __meta__ = {
 clicable = false
 
 [node name="Preview_container" type="ScrollContainer" parent="Edit_panel/Edit_sceene"]
-anchor_left = 0.648
-anchor_top = 1.0
-anchor_right = 0.937
+anchor_left = 0.661
+anchor_top = 0.735
+anchor_right = 0.959
 anchor_bottom = 1.0
-margin_left = 0.447998
-margin_top = -112.0
-margin_right = 2664.51
-margin_bottom = 1008.0
-rect_scale = Vector2( 0.1, 0.1 )
+margin_left = -972.864
+margin_top = -317.0
+margin_right = 758.984
+margin_bottom = 230.0
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 1144, 373 )
 
 [node name="adj_obj_container" type="GridContainer" parent="Edit_panel/Edit_sceene/Preview_container"]
 unique_name_in_owner = true
-columns = 6
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
 
 [node name="Label" type="Label" parent="Edit_panel/Edit_sceene"]
 anchor_left = 0.648
-anchor_top = 1.0
-anchor_right = 0.937
-anchor_bottom = 1.0
+anchor_top = 0.72
+anchor_right = 0.971
+anchor_bottom = 0.72
 margin_left = 0.447998
-margin_top = -144.0
-margin_right = 0.511963
-margin_bottom = -112.0
+margin_top = -32.0
+margin_right = -0.304077
 text = "Connecting tiles"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="Add_rule_button" type="Button" parent="Edit_panel/Edit_sceene"]
-anchor_left = 0.648
-anchor_top = 1.0
-anchor_right = 0.742
-anchor_bottom = 1.0
-margin_left = 0.447998
-margin_top = -184.0
-margin_right = 0.255981
-margin_bottom = -164.0
+anchor_left = 0.649
+anchor_top = 0.54
+anchor_right = 0.743
+anchor_bottom = 0.54
+margin_left = 0.42395
+margin_top = -1.52588e-05
+margin_right = 0.231812
+margin_bottom = 20.0
 text = "Add rule"
 
 [node name="Label2" type="Label" parent="Edit_panel/Edit_sceene"]
-anchor_left = 0.656
-anchor_right = 0.945
-margin_left = 0.255981
-margin_top = 16.0
-margin_right = 0.319946
-margin_bottom = 40.0
+anchor_left = 0.648
+anchor_top = 0.04
+anchor_right = 0.97
+anchor_bottom = 0.04
+margin_left = 0.447998
+margin_right = -0.280029
+margin_bottom = 24.0
 text = "Rules"
 align = 1
 valign = 1
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="Edit_panel/Edit_sceene"]
-anchor_left = 0.648
-anchor_right = 0.953
-anchor_bottom = 0.52
-margin_left = 0.447998
-margin_top = 56.0
-margin_right = 0.12793
+anchor_left = 0.649
+anchor_top = 0.14
+anchor_right = 0.97
+anchor_bottom = 0.515
+margin_left = 0.42395
+margin_right = 0.0559692
 margin_bottom = -1.52588e-05
 scroll_horizontal_enabled = false
 
 [node name="Rule_container" type="GridContainer" parent="Edit_panel/Edit_sceene/ScrollContainer2"]
 unique_name_in_owner = true
-
-[node name="update_adj" type="Button" parent="Edit_panel/Edit_sceene"]
-anchor_left = 0.937
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 0.511963
-margin_top = -32.0
-margin_right = -8.0
-margin_bottom = -8.0
-text = "update"
 
 [node name="Control" type="Control" parent="Edit_panel"]
 anchor_bottom = 1.0
@@ -675,7 +664,7 @@ margin_right = 256.0
 [node name="Back" type="Button" parent="Edit_panel/Control/Panel"]
 anchor_left = 0.0955938
 anchor_top = 1.0
-anchor_right = 0.914
+anchor_right = 0.906188
 anchor_bottom = 1.0
 margin_left = -1.472
 margin_top = -32.0
@@ -748,16 +737,40 @@ text = "FRONT"
 align = 1
 valign = 1
 
+[node name="Rotation" type="Button" parent="Edit_panel/Control/Panel"]
+anchor_left = 0.094
+anchor_top = 1.0
+anchor_right = 0.906
+anchor_bottom = 1.0
+margin_left = -0.0639973
+margin_top = -64.0
+margin_right = 0.0639954
+margin_bottom = -40.0
+rect_pivot_offset = Vector2( 24, 12 )
+text = "Allow rotations"
+
 [node name="copy" type="Button" parent="Edit_panel/Control/Panel"]
 anchor_left = 0.094
 anchor_top = 1.0
 anchor_right = 0.906
 anchor_bottom = 1.0
-margin_left = -0.0640011
-margin_top = -72.0
+margin_left = -0.0639973
+margin_top = -128.0
 margin_right = 0.0639954
-margin_bottom = -48.0
+margin_bottom = -104.0
 text = "Add rule to all sides"
+
+[node name="Rotation2" type="Button" parent="Edit_panel/Control/Panel"]
+anchor_left = 0.094
+anchor_top = 1.0
+anchor_right = 0.906
+anchor_bottom = 1.0
+margin_left = -0.0639992
+margin_top = -96.0
+margin_right = 0.0639954
+margin_bottom = -72.0
+rect_pivot_offset = Vector2( 24, 12 )
+text = "Set object rotation"
 
 [node name="Rule_ to_all_sides" type="Panel" parent="Edit_panel/Control"]
 unique_name_in_owner = true
@@ -767,7 +780,7 @@ anchor_left = 0.094
 anchor_top = 1.0
 anchor_right = 0.906
 anchor_bottom = 1.0
-margin_left = -0.0640011
+margin_left = -0.0639973
 margin_top = -144.0
 margin_right = 0.0639954
 margin_bottom = -40.0
@@ -817,6 +830,113 @@ margin_left = -0.0320015
 margin_top = 1.03201
 margin_right = -0.0960083
 margin_bottom = 25.032
+
+[node name="Rotation_panel" type="Panel" parent="Edit_panel/Control"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.094
+anchor_top = 0.54
+anchor_right = 0.906
+anchor_bottom = 0.54
+margin_left = -0.0639973
+margin_top = 2.99998
+margin_right = 0.0639954
+margin_bottom = 147.0
+rect_pivot_offset = Vector2( 24, 64 )
+
+[node name="Rotate_90_2" type="CheckBox" parent="Edit_panel/Control/Rotation_panel"]
+unique_name_in_owner = true
+margin_left = 8.0
+margin_top = 32.0
+margin_right = 120.0
+margin_bottom = 56.0
+text = "Rotate y 90°"
+
+[node name="Rotate_180_2" type="CheckBox" parent="Edit_panel/Control/Rotation_panel"]
+unique_name_in_owner = true
+margin_left = 8.0
+margin_top = 56.0
+margin_right = 120.0
+margin_bottom = 80.0
+text = "Rotate y 180°"
+
+[node name="Rotate_270_2" type="CheckBox" parent="Edit_panel/Control/Rotation_panel"]
+unique_name_in_owner = true
+margin_left = 8.0
+margin_top = 80.0
+margin_right = 120.0
+margin_bottom = 104.0
+rect_pivot_offset = Vector2( 72, 16 )
+text = "Rotate y 270°"
+
+[node name="Label" type="Label" parent="Edit_panel/Control/Rotation_panel"]
+margin_left = 40.0
+margin_right = 168.0
+margin_bottom = 24.0
+text = "Allow rotations"
+align = 1
+valign = 1
+
+[node name="save" type="Button" parent="Edit_panel/Control/Rotation_panel"]
+unique_name_in_owner = true
+anchor_left = 0.692
+anchor_top = 1.0
+anchor_right = 0.962
+anchor_bottom = 1.0
+margin_left = 0.0639954
+margin_top = -32.0
+margin_right = -0.0960083
+margin_bottom = -8.0
+text = "save"
+
+[node name="Object_rotation" type="Panel" parent="Edit_panel/Control"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.094
+anchor_top = 1.0
+anchor_right = 0.906
+anchor_bottom = 1.0
+margin_left = -0.0640011
+margin_top = -136.0
+margin_right = 0.0639954
+margin_bottom = -40.0
+rect_pivot_offset = Vector2( 120, 56 )
+
+[node name="X2" type="Label" parent="Edit_panel/Control/Object_rotation"]
+anchor_left = 0.038
+anchor_top = 1.0
+anchor_right = 0.154
+anchor_bottom = 1.0
+margin_left = 0.0959997
+margin_top = -80.0
+margin_right = -0.0320015
+margin_bottom = -56.0
+text = "Y"
+align = 1
+valign = 1
+
+[node name="Rotation options" type="OptionButton" parent="Edit_panel/Control/Object_rotation"]
+unique_name_in_owner = true
+anchor_left = 0.192
+anchor_top = 1.0
+anchor_right = 0.923
+anchor_bottom = 1.0
+margin_left = 0.0639992
+margin_top = -80.0
+margin_right = 0.0159912
+margin_bottom = -56.0
+
+[node name="save_rot_option" type="Button" parent="Edit_panel/Control/Object_rotation"]
+unique_name_in_owner = true
+anchor_left = 0.654
+anchor_top = 1.0
+anchor_right = 0.923
+anchor_bottom = 1.0
+margin_left = -0.0320129
+margin_top = -32.0
+margin_right = 0.0159912
+margin_bottom = -8.0
+text = "save"
 
 [node name="Edit_rule_panel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -917,7 +1037,6 @@ valign = 1
 [connection signal="value_changed" from="Main_Panel/Camera_settings/Dist_spin" to="." method="_on_Dist_spin_value_changed"]
 [connection signal="pressed" from="Main_Panel/Camera_settings/Button" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Edit_panel/Edit_sceene/Add_rule_button" to="." method="_on_Add_rule_button_pressed"]
-[connection signal="pressed" from="Edit_panel/Edit_sceene/update_adj" to="." method="_on_update_adj_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Panel/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Panel/VBoxContainer/Front_v" to="." method="_on_Front_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Panel/VBoxContainer/Back_v" to="." method="_on_Back_side_pressed"]
@@ -925,12 +1044,16 @@ valign = 1
 [connection signal="pressed" from="Edit_panel/Control/Panel/VBoxContainer/Left_v" to="." method="_on_Left_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Panel/VBoxContainer/Up_v" to="." method="_on_Up_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Panel/VBoxContainer/Down_v" to="." method="_on_Down_pressed"]
+[connection signal="pressed" from="Edit_panel/Control/Panel/Rotation" to="." method="_on_Rotation_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Panel/copy" to="." method="_on_copy_pressed"]
+[connection signal="pressed" from="Edit_panel/Control/Panel/Rotation2" to="." method="_on_Rotation2_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Rule_ to_all_sides/add_rul_to_all" to="." method="_on_add_rul_to_all_pressed"]
 [connection signal="pressed" from="Edit_panel/Control/Rule_ to_all_sides/cancel_rul_to_all" to="." method="_on_cancel_rul_to_all_pressed"]
 [connection signal="item_selected" from="Edit_panel/Control/Rule_ to_all_sides/rul_to_all_options" to="." method="_on_rul_to_all_options_item_selected"]
-[connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Edit_panel/Control/Rotation_panel/save" to="." method="_on_Close_allow_rot_pressed"]
+[connection signal="pressed" from="Edit_panel/Control/Object_rotation/save_rot_option" to="." method="_on_save_rot_option_pressed"]
 [connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_rul_edit_pressed"]
+[connection signal="pressed" from="Edit_rule_panel/Panel/Back_rul_edit" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Edit_rule_panel/Add_rule_to_rules" to="." method="_on_Add_rule_to_rules_pressed"]
 
 [editable path="Main_Panel/Add_object_panel/preview/preview_control"]
