@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://fhebu0c6ocdi"
+path="res://.godot/imported/roof_corner.obj-2e86f64fbcc4050770a32383e22d16a5.mesh"
+
+[deps]
+
+files=["res://.godot/imported/roof_corner.obj-2e86f64fbcc4050770a32383e22d16a5.mesh"]
+
+source_file="res://Castle/roof_corner.obj"
+dest_files=["res://.godot/imported/roof_corner.obj-2e86f64fbcc4050770a32383e22d16a5.mesh", "res://.godot/imported/roof_corner.obj-2e86f64fbcc4050770a32383e22d16a5.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

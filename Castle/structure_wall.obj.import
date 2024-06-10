@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bfxmjd5gdsagt"
+path="res://.godot/imported/structure_wall.obj-a93f96cc3f5f2dd2518d8f6ae09a7033.mesh"
+
+[deps]
+
+files=["res://.godot/imported/structure_wall.obj-a93f96cc3f5f2dd2518d8f6ae09a7033.mesh"]
+
+source_file="res://Castle/structure_wall.obj"
+dest_files=["res://.godot/imported/structure_wall.obj-a93f96cc3f5f2dd2518d8f6ae09a7033.mesh", "res://.godot/imported/structure_wall.obj-a93f96cc3f5f2dd2518d8f6ae09a7033.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

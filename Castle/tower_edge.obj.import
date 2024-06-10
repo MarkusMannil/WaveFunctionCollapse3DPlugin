@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c6vmjex1bv2e3"
+path="res://.godot/imported/tower_edge.obj-3005c79d09d504b6c4aa60397b52b160.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tower_edge.obj-3005c79d09d504b6c4aa60397b52b160.mesh"]
+
+source_file="res://Castle/tower_edge.obj"
+dest_files=["res://.godot/imported/tower_edge.obj-3005c79d09d504b6c4aa60397b52b160.mesh", "res://.godot/imported/tower_edge.obj-3005c79d09d504b6c4aa60397b52b160.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

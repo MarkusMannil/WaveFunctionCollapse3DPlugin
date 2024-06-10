@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://3sv86lkrn5x3"
+path="res://.godot/imported/overhang_round.obj-041ec4f2cd0f6c561b5c60e43cbc966a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overhang_round.obj-041ec4f2cd0f6c561b5c60e43cbc966a.mesh"]
+
+source_file="res://Castle/overhang_round.obj"
+dest_files=["res://.godot/imported/overhang_round.obj-041ec4f2cd0f6c561b5c60e43cbc966a.mesh", "res://.godot/imported/overhang_round.obj-041ec4f2cd0f6c561b5c60e43cbc966a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

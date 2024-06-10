@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://1x3oipm1exg4"
+path="res://.godot/imported/wall_flatGate.obj-fd522b0adab48f402f2126ca60891a6e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/wall_flatGate.obj-fd522b0adab48f402f2126ca60891a6e.mesh"]
+
+source_file="res://Castle/wall_flatGate.obj"
+dest_files=["res://.godot/imported/wall_flatGate.obj-fd522b0adab48f402f2126ca60891a6e.mesh", "res://.godot/imported/wall_flatGate.obj-fd522b0adab48f402f2126ca60891a6e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

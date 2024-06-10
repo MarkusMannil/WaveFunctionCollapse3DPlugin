@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c3y7h723gctm4"
+path="res://.godot/imported/towerPaint_base.obj-2ae529ad4b9e5a9604ec32a6931a927d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/towerPaint_base.obj-2ae529ad4b9e5a9604ec32a6931a927d.mesh"]
+
+source_file="res://Castle/towerPaint_base.obj"
+dest_files=["res://.godot/imported/towerPaint_base.obj-2ae529ad4b9e5a9604ec32a6931a927d.mesh", "res://.godot/imported/towerPaint_base.obj-2ae529ad4b9e5a9604ec32a6931a927d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

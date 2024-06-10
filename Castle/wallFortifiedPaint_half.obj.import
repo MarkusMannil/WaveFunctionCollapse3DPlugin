@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dbxmj3n1ym1u5"
+path="res://.godot/imported/wallFortifiedPaint_half.obj-8acd21f7612d417fcbe92bae9c34a8d7.mesh"
+
+[deps]
+
+files=["res://.godot/imported/wallFortifiedPaint_half.obj-8acd21f7612d417fcbe92bae9c34a8d7.mesh"]
+
+source_file="res://Castle/wallFortifiedPaint_half.obj"
+dest_files=["res://.godot/imported/wallFortifiedPaint_half.obj-8acd21f7612d417fcbe92bae9c34a8d7.mesh", "res://.godot/imported/wallFortifiedPaint_half.obj-8acd21f7612d417fcbe92bae9c34a8d7.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

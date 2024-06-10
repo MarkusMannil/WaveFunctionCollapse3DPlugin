@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://fgfyex3g6fjr"
+path="res://.godot/imported/structure.obj-ce0a32ce0b25896d729a11cffaa8a297.mesh"
+
+[deps]
+
+files=["res://.godot/imported/structure.obj-ce0a32ce0b25896d729a11cffaa8a297.mesh"]
+
+source_file="res://Castle/structure.obj"
+dest_files=["res://.godot/imported/structure.obj-ce0a32ce0b25896d729a11cffaa8a297.mesh", "res://.godot/imported/structure.obj-ce0a32ce0b25896d729a11cffaa8a297.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

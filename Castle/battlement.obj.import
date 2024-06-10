@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bibrjsidnytd"
+path="res://.godot/imported/battlement.obj-998cf363b597bbd62059279ce1334e11.mesh"
+
+[deps]
+
+files=["res://.godot/imported/battlement.obj-998cf363b597bbd62059279ce1334e11.mesh"]
+
+source_file="res://Castle/battlement.obj"
+dest_files=["res://.godot/imported/battlement.obj-998cf363b597bbd62059279ce1334e11.mesh", "res://.godot/imported/battlement.obj-998cf363b597bbd62059279ce1334e11.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

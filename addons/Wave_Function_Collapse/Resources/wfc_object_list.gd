@@ -1,13 +1,13 @@
-tool
+@tool
 extends Resource
 
 class_name WFC_object_list
 
-export(Array, Resource) var object_list : Array  = []
+@export var object_list : Array  = [] # (Array, Resource)
 
-export(Array, Resource) var rule_list : Array  = []
+@export var rule_list : Array  = [] # (Array, Resource)
 
-export var camera_settings  :Dictionary
+@export var camera_settings  :Dictionary
 
 var special_rules : int = 0 
 

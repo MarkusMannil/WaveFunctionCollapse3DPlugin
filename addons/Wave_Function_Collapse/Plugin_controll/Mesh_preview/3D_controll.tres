@@ -1,7 +1,8 @@
-[gd_resource type="World" load_steps=2 format=2]
+[gd_resource type="World3D" load_steps=3 format=3 uid="uid://docrs5dtyvr8w"]
 
-[ext_resource path="res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/env.tres" type="Environment" id=1]
+[ext_resource type="Environment" uid="uid://cbjk6ls62v25m" path="res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/env.tres" id="1"]
+[ext_resource type="Environment" uid="uid://dyeaqciuigqtd" path="res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/new_env.tres" id="1_xw7e0"]
 
 [resource]
-environment = ExtResource( 1 )
-fallback_environment = ExtResource( 1 )
+environment = ExtResource("1_xw7e0")
+fallback_environment = ExtResource("1")

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://do0vyj8uns7h0"
+path="res://.godot/imported/detail_crate.obj-f090cd8c07dc6386ab1cd6d50f5ce026.mesh"
+
+[deps]
+
+files=["res://.godot/imported/detail_crate.obj-f090cd8c07dc6386ab1cd6d50f5ce026.mesh"]
+
+source_file="res://Castle/detail_crate.obj"
+dest_files=["res://.godot/imported/detail_crate.obj-f090cd8c07dc6386ab1cd6d50f5ce026.mesh", "res://.godot/imported/detail_crate.obj-f090cd8c07dc6386ab1cd6d50f5ce026.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

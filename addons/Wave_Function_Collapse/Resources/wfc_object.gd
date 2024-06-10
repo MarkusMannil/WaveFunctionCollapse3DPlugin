@@ -1,34 +1,34 @@
-tool
+@tool
 extends Resource
 class_name WFC_object
 
-export var name : String = ""
+@export var name : String = ""
 
-export var mesh : Mesh
+@export var mesh : Mesh
 
-export  var id : int 
+@export  var id : int 
 
 # id of same obj
 var mesh_id : int
 
-export var rotation : Vector3 = Vector3(0,0,0)
+@export var rotation : Vector3 = Vector3(0,0,0)
 
-export(Array) var up  = Array()
+@export var up: Array  = Array()
 
-export(Array) var down = Array()
+@export var down: Array = Array()
 
-export(Array) var forward = Array()
+@export var forward: Array = Array()
 
-export(Array) var backward = Array()
+@export var backward: Array = Array()
 
-export(Array) var right = Array()
+@export var right: Array = Array()
 
-export(Array) var left = Array()
+@export var left: Array = Array()
 
-export(bool) var r_90 = false
-export(bool) var r_180 = false
-export(bool) var r_270 = false
-export(bool) var r_flip = false
+@export var r_90: bool = false
+@export var r_180: bool = false
+@export var r_270: bool = false
+@export var r_flip: bool = false
 
 
 
@@ -101,32 +101,32 @@ func get_rule_of_index(index:int):
 func change_rule_of_index(value , side :int , index: int ):
 	match side:
 		0:
-			 forward[index] = value
+			forward[index] = value
 		1:
-			 backward[index] = value
+			backward[index] = value
 		2:
-			 right[index] = value
+			right[index] = value
 		3:
-			 left[index] = value
+			left[index] = value
 		4:
-			 up[index] = value
+			up[index] = value
 		5:
-			 down[index] = value
+			down[index] = value
 
 func delete_rule_of_index(side :int , index: int ):
 	match side:
 		0:
-			 forward.pop_at(index)
+			forward.pop_at(index)
 		1:
-			 backward.pop_at(index)
+			backward.pop_at(index)
 		2:
-			 right.pop_at(index)
+			right.pop_at(index)
 		3:
-			 left.pop_at(index)
+			left.pop_at(index)
 		4:
-			 up.pop_at(index)
+			up.pop_at(index)
 		5:
-			 down.pop_at(index)
+			down.pop_at(index)
 
 func add_rule_to_side(side : int, obj ):
 	

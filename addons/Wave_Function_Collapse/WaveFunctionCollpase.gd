@@ -1,28 +1,28 @@
-tool
+@tool
 extends Node
 class_name wave_function_collapse
 
 var wfc_objects : Array
 
-export var objects_resource : Resource 
+@export var objects_resource : WFC_object_list 
 
 var neighbour_shifts : Array
 
 var adjacency_objects : Array
 
 # size of every object
-export var object_size : Vector3 = Vector3(1,1,1)
+@export var object_size : Vector3 = Vector3(1,1,1)
 
 # grid start cordinate
-export var start_pos : Vector3 
+@export var start_pos : Vector3 
 
 # pos - min bound lowest x y z cords : inclusive
-export var min_bound : Vector3
+@export var min_bound : Vector3
 
 # pos + max bound highest x y z cords : inclusive 
-export var max_bound : Vector3 = Vector3(1,1,1)
+@export var max_bound : Vector3 = Vector3(1,1,1)
 
-export var run_with_ui_select : bool = true
+@export var run_with_ui_select : bool = true
 
 var all : int
 
@@ -41,10 +41,10 @@ var nan_pos : wfc_position
 var error : bool = false 
 # set up warnings 
 func _init():
-	connect("child_entered_tree",self, "_on_wave_function_collapse_child_entered_tree")
-	connect("child_exiting_tree",self, "_on_wave_function_collapse_child_exiting_tree")
+	connect("child_entered_tree", Callable(self, "_on_wave_function_collapse_child_entered_tree"))
+	connect("child_exiting_tree", Callable(self, "_on_wave_function_collapse_child_exiting_tree"))
 
-func _get_configuration_warning():
+func _get_configuration_warnings():
 	if grid_map == null:
 		return "A GridMap node must be added or created for this node to work"
 	else:
@@ -53,13 +53,13 @@ func _get_configuration_warning():
 func _on_wave_function_collapse_child_entered_tree(node):
 	if node.get_class() == "GridMap":
 		grid_map = node
-		update_configuration_warning()
+		update_configuration_warnings()
 
 func _on_wave_function_collapse_child_exiting_tree(node):
 	
 	if node == grid_map:
 		grid_map = null
-		update_configuration_warning()
+		update_configuration_warnings()
 	
 	pass # Replace with function body.
 
@@ -222,9 +222,9 @@ func run_wave_function_collapse():
 	
 	if err: 
 		return
-	var start = OS.get_ticks_msec()
+	var start = Time.get_ticks_msec()
 	wave_function_collapse()
-	print(OS.get_ticks_msec() - start , " msec")
+	print(Time.get_ticks_msec() - start , " msec")
 
 func fix_side_logic(ui_side):
 	match ui_side:
@@ -553,9 +553,9 @@ func put_obj_to_map():
 		if obj_index == -1:
 			continue
 		
-		var myQuaternion = Quat(Vector3(0, 1, 0.0), deg2rad(wfc_objects[obj_index].rotation.y))
-		var cell_item_orientation = Basis(myQuaternion).get_orthogonal_index()
-		grid_map.set_cell_item(obj.pos.x + min_bound.x, obj.pos.y + min_bound.y, obj.pos.z + min_bound.z, obj_index, cell_item_orientation)
+		var myQuaternion = Quaternion(Vector3(0, 1, 0.0), deg_to_rad(wfc_objects[obj_index].rotation.y))
+		var cell_item_orientation = grid_map.get_orthogonal_index_from_basis(Basis(myQuaternion))
+		grid_map.set_cell_item(Vector3(obj.pos.x + min_bound.x, obj.pos.y + min_bound.y, obj.pos.z + min_bound.z), obj_index, cell_item_orientation)
 		
 
 func wave_function_collapse():

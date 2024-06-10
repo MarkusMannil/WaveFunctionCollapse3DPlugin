@@ -1,17 +1,17 @@
-tool
+@tool
 extends Control
 
 var wfc_list : Resource
 
 var wfc_node : wave_function_collapse
 
-onready var preview_list  = $"%GridContainer"
+@onready var preview_list  = $"%GridContainer"
  
-onready var preview_object_prefab = preload("res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/Mesh_preview.tscn")
+@onready var preview_object_prefab = preload("res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/Mesh_preview.tscn")
 
-onready var rule_box_prefab = preload("res://addons/Wave_Function_Collapse/Plugin_controll/rule_box/Rule_box.tscn")
+@onready var rule_box_prefab = preload("res://addons/Wave_Function_Collapse/Plugin_controll/rule_box/Rule_box.tscn")
 
-onready var rule_base_prefab = preload("res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/Rule_base.tscn")
+@onready var rule_base_prefab = preload("res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/Rule_base.tscn")
 
 var selected_object : mesh_preview = null
 
@@ -33,17 +33,18 @@ func _ready():
 	
 	load_camera_settings()
 	
+	connect("cam_settings_changed", Callable(%Mesh_preview, "cam_settings_changed"))
 	
 	for i in preview_list.get_children():
 		preview_list.remove_child(i)
 	
 	if wfc_list.has_method("get_objects"):
 		for obj in wfc_list.get_objects():
-			var preview_object = preview_object_prefab.instance()
+			var preview_object = preview_object_prefab.instantiate()
 			preview_object.set_object_resource(obj)
 			preview_object.set_base(self)
 			preview_list.add_child(preview_object)
-			connect("cam_settings_changed",preview_object,"cam_settings_changed")
+			connect("cam_settings_changed", Callable(preview_object, "cam_settings_changed"))
 	
 	emit_signal("cam_settings_changed", fov, height, dist, angle)
 	
@@ -59,14 +60,16 @@ func WFC_node_selected(node):
 	_ready()
 	
 func add_icons():
-	$Main_Panel/Control/Panel/Action_buttons/Add.icon = get_icon("New", "EditorIcons")
-	$Main_Panel/Control/Panel/Action_buttons/Edit.icon = get_icon("Edit", "EditorIcons")
-	$Main_Panel/Control/Panel/Action_buttons/Duplicate.icon = get_icon("Duplicate", "EditorIcons")
-	$Main_Panel/Control/Panel/Action_buttons/Delete.icon =  get_icon("Remove", "EditorIcons")
-	$Main_Panel/Control/Panel/Generate.icon = get_icon("Play", "EditorIcons")
-	$Main_Panel/Control/Panel/Clear_map.icon = get_icon("Clear", "EditorIcons")
-	$Main_Panel/Control/Panel/Edit_rules.icon = get_icon("Edit", "EditorIcons")
-	$Main_Panel/Control/Panel/view_settings.icon = get_icon("GDScript", "EditorIcons")
+	var gui = EditorInterface.get_editor_theme()
+	$Main_Panel/Control/Panel/Action_buttons/Add.icon = gui.get_icon("New", "EditorIcons")
+	$Main_Panel/Control/Panel/Action_buttons/Edit.icon = gui.get_icon("Edit", "EditorIcons")
+	$Main_Panel/Control/Panel/Action_buttons/Duplicate.icon = gui.get_icon("Duplicate", "EditorIcons")
+	$Main_Panel/Control/Panel/Action_buttons/Delete.icon =  gui.get_icon("Remove", "EditorIcons")
+	$Main_Panel/Control/Panel/Generate.icon = gui.get_icon("Play", "EditorIcons")
+	$Main_Panel/Control/Panel/Clear_map.icon = gui.get_icon("Clear", "EditorIcons")
+	$Main_Panel/Control/Panel/Edit_rules.icon = gui.get_icon("Edit", "EditorIcons")
+	$Main_Panel/Control/Panel/view_settings.icon = gui.get_icon("GDScript", "EditorIcons")
+	pass
 
 func other_node_selected():
 	$"%Edit_rule_panel".visible = false
@@ -97,11 +100,12 @@ func _on_Edit_pressed():
 		return
 		
 	$"%Mesh_preview".set_object_resource(selected_object.object_resource)
+	
 	_on_Front_pressed()
 	
-	$"%Rotate_90_2".pressed = selected_object.object_resource.r_90
-	$"%Rotate_180_2".pressed = selected_object.object_resource.r_180
-	$"%Rotate_270_2".pressed = selected_object.object_resource.r_270
+	$"%Rotate_90_2".button_pressed = selected_object.object_resource.r_90
+	$"%Rotate_180_2".button_pressed = selected_object.object_resource.r_180
+	$"%Rotate_270_2".button_pressed = selected_object.object_resource.r_270
 	
 	wfc_node.get_objects()
 	
@@ -116,7 +120,7 @@ func _on_Back_pressed():
 	$"%Edit_panel".visible = false
 	$"%Edit_rule_panel".visible = false
 	$"%Camera_settings".visible = false
-	ResourceSaver.save(wfc_list.resource_path, wfc_list)
+	ResourceSaver.save(wfc_list, wfc_list.resource_path)
 	pass # Replace with function body.
 
 
@@ -126,14 +130,14 @@ func _on_Add_rule_button_pressed():
 	
 	var side = selected_angle
 	
-	var rul_box = rule_box_prefab.instance()
+	var rul_box = rule_box_prefab.instantiate()
 	rul_box.innit_rule_list(wfc_list.rule_list, selected_object.object_resource.get_rule_of_index(selected_angle).size(), 0)
 	
 	
 	selected_object.object_resource.add_rule_to_side(side, 1)
 	
-	rul_box.connect("rule_changed", self, "rule_changed")
-	rul_box.connect("del_rule", self, "delete_rule")
+	rul_box.connect("rule_changed", Callable(self, "rule_changed"))
+	rul_box.connect("del_rule", Callable(self, "delete_rule"))
 	
 	$"%Rule_container".add_child(rul_box)
 	update_rules()
@@ -146,10 +150,10 @@ func load_rules_of_side(side:int):
 	for rule in selected_object.object_resource.get_rule_of_index(side):
 		
 		rule = rule_dict[rule]
-		var rul_box = rule_box_prefab.instance()
+		var rul_box = rule_box_prefab.instantiate()
 		rul_box.innit_rule_list(wfc_list.rule_list, count ,rule.id - 1)
-		rul_box.connect("rule_changed", self, "rule_changed")
-		rul_box.connect("del_rule", self, "delete_rule")
+		rul_box.connect("rule_changed", Callable(self, "rule_changed"))
+		rul_box.connect("del_rule", Callable(self, "delete_rule"))
 		
 		rul_box.index
 		$"%Rule_container".add_child(rul_box)
@@ -189,7 +193,7 @@ func _on_update_adj_pressed():
 	update_rules()
 
 func update_rules():
-	ResourceSaver.save(wfc_list.resource_path, wfc_list)
+	ResourceSaver.save(wfc_list, wfc_list.resource_path)
 	fill_adj_objects_container()
 		
 func fill_adj_objects_container():
@@ -202,13 +206,13 @@ func fill_adj_objects_container():
 		return
 	
 	for obj in adj_objs:
-		var preview_object = preview_object_prefab.instance()
+		var preview_object = preview_object_prefab.instantiate()
 		preview_object.set_base(self)
 		preview_object.set_object_resource(obj)
 		preview_object.disable_label_and_click()
 		preview_object.set_mesh_rotation(get_op_side_rot(selected_angle),Vector3(0,0,0))
 		$"%adj_obj_container".add_child(preview_object)
-		connect("cam_settings_changed",preview_object,"cam_settings_changed")
+		connect("cam_settings_changed", Callable(preview_object, "cam_settings_changed"))
 	emit_signal("cam_settings_changed", fov, height, dist, angle)
 	
 
@@ -285,12 +289,12 @@ func _on_Resource_path_button_pressed():
 
 func _on_Folder_select_dir_selected(dir):
 	$"%Resource_path_button".text = dir
-	$"%Resource_path_button".hint_tooltip = dir
+	$"%Resource_path_button".tooltip_text = dir
 	pass # Replace with function body.
 
 func _on_Mesh_select_file_selected(path):
 	$"%Mesh_path_button".text = path
-	$"%Mesh_path_button".hint_tooltip = path
+	$"%Mesh_path_button".tooltip_text = path
 	
 	$"%preview_control".set_mesh(load(path))
 	$"%preview".visible = true
@@ -303,7 +307,7 @@ func save_new_resource():
 	var mesh_path =$"%Mesh_path_button".text
 	var write_path =$"%Resource_path_button".text
 	
-	if object_name.empty():
+	if object_name.is_empty():
 		return false
 	
 	var new_obj = WFC_object.new()
@@ -325,7 +329,7 @@ func save_new_resource():
 	
 	new_obj.set_rules_empty()
 	
-	ResourceSaver.save(wfc_list.resource_path, wfc_list)
+	ResourceSaver.save(wfc_list, wfc_list.resource_path)
 	
 	return true
 
@@ -334,7 +338,7 @@ func _on_Yes_pressed():
 	set_obj_inactive()
 	_ready()
 	$"%Delete_panel".visible = false
-	ResourceSaver.save(wfc_list.resource_path, wfc_list)
+	ResourceSaver.save(wfc_list, wfc_list.resource_path)
 	pass # Replace with function body.
 
 func _on_No_pressed():
@@ -349,22 +353,22 @@ func _on_Add_rule_to_rules_pressed():
 	
 	rule_data.id = $"%Base_rule_list".get_child_count() + 1 
 	
-	rule_data.color = Color(rand_range(0,1),rand_range(0,1),rand_range(0,1))
+	rule_data.color = Color(randf_range(0,1),randf_range(0,1),randf_range(0,1))
 	
 	# ui
-	var rule = rule_base_prefab.instance()
+	var rule = rule_base_prefab.instantiate()
 	
 	rule.set_rule(rule_data)
 	
-	rule.rect_min_size = Vector2(340, 80)
+	rule.custom_minimum_size = Vector2(340, 80)
 	
 	$"%Base_rule_list".add_child(rule)
 	
-	rule.connect("rule_saved", self, "_save_rule")
-	rule.connect("rule_del", self , "_delete_rule")
+	rule.connect("rule_saved", Callable(self, "_save_rule"))
+	rule.connect("rule_del", Callable(self, "_delete_rule"))
 	
 	
-	ResourceSaver.save(wfc_list.resource_path, wfc_list)
+	ResourceSaver.save(wfc_list, wfc_list.resource_path)
 	#
 	
 	pass # Replace with function body.
@@ -380,7 +384,7 @@ func _save_rule(rule):
 		wfc_list.add_rule(rule)
 		
 	rule_dict[rule.id] = rule
-	ResourceSaver.save(wfc_list.resource_path, wfc_list)
+	ResourceSaver.save(wfc_list ,wfc_list.resource_path)
 	pass
 
 func _delete_rule(rule : ui_rule, obj):
@@ -398,7 +402,7 @@ func _delete_rule(rule : ui_rule, obj):
 	for child in $"%Base_rule_list".get_children():
 		child.update()
 	
-	ResourceSaver.save(wfc_list.resource_path, wfc_list)
+	ResourceSaver.save(wfc_list,wfc_list.resource_path)
 	pass
 
 func _on_Edit_rules_pressed():
@@ -408,12 +412,12 @@ func _on_Edit_rules_pressed():
 		child.queue_free()
 	
 	for rul in wfc_list.rule_list:
-		var rule = rule_base_prefab.instance()
+		var rule = rule_base_prefab.instantiate()
 		rule.set_rule(rul)
 		rule.set_view_mode()
 		
-		rule.connect("rule_saved",self,"_save_rule")
-		rule.connect("rule_del",self ,"_delete_rule")
+		rule.connect("rule_saved", Callable(self, "_save_rule"))
+		rule.connect("rule_del", Callable(self, "_delete_rule"))
 		
 		$"%Base_rule_list".add_child(rule)
 	
@@ -577,7 +581,7 @@ func _on_copy_pressed():
 	$"%rul_to_all_options".clear()
 	
 	for rul in wfc_list.rule_list:
-		$"%rul_to_all_options".add_item(String(rul.id) +" "+ rul.rule_name)
+		$"%rul_to_all_options".add_item(str(rul.id) +" "+ rul.rule_name)
 		
 		
 	$"%rul_to_all_options".selected = 0
@@ -648,9 +652,9 @@ func _on_Rotation_pressed():
 	pass # Replace with function body.
 
 func _on_Close_allow_rot_pressed():
-	selected_object.object_resource.r_90 = $"%Rotate_90_2".pressed
-	selected_object.object_resource.r_180 = $"%Rotate_180_2".pressed
-	selected_object.object_resource.r_270 = $"%Rotate_270_2".pressed
+	selected_object.object_resource.r_90 = $"%Rotate_90_2".button_pressed
+	selected_object.object_resource.r_180 = $"%Rotate_180_2".button_pressed
+	selected_object.object_resource.r_270 = $"%Rotate_270_2".button_pressed
 	
 	$"%Rotation_panel".visible = false
 	update_rules()
@@ -664,22 +668,22 @@ func _on_Rotation2_pressed():
 	$"%Rotation options".add_item("270", 3)
 	
 	var obj_y_r = selected_object.object_resource.rotation.y
-	print(obj_y_r)
+	
 	
 	
 	match int(obj_y_r):
 		0: 
 			$"%Rotation options".select(0)
-			print("ooooooooo")
+			
 		90: 
 			$"%Rotation options".select(1)
-			print("iiiiiiiiii")
+			
 		180: 
 			$"%Rotation options".select(2)
-			print("kkkkkkkkkkkk")
+			
 		270:
 			$"%Rotation options".select(3)
-			print("vvvvvvvvvvvvv")
+			
 	
 	$"%Object_rotation".visible = true 
 
@@ -687,8 +691,6 @@ func _on_Rotation2_pressed():
 func _on_save_rot_option_pressed():
 	var sel = $"%Rotation options".get_selected_id()
 	var v = selected_object.object_resource.rotation
-	
-	print(v)
 	
 	match sel:
 		0: 
@@ -699,9 +701,6 @@ func _on_save_rot_option_pressed():
 			selected_object.object_resource.rotation = Vector3(v.x, 180 ,v.z)
 		3:
 			selected_object.object_resource.rotation = Vector3(v.x, 270 ,v.z)
-	
-	print(v)
-	print(sel)
 	
 	$"%Mesh_preview".rotation_changed()
 	$"%Object_rotation".visible = false

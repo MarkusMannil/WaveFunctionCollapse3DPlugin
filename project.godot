@@ -6,51 +6,12 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Resource",
-"class": "WFC_object",
-"language": "GDScript",
-"path": "res://addons/Wave_Function_Collapse/Resources/wfc_object.gd"
-}, {
-"base": "Resource",
-"class": "WFC_object_list",
-"language": "GDScript",
-"path": "res://addons/Wave_Function_Collapse/Resources/wfc_object_list.gd"
-}, {
-"base": "ViewportContainer",
-"class": "mesh_preview",
-"language": "GDScript",
-"path": "res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/3D_controll.gd"
-}, {
-"base": "Resource",
-"class": "ui_rule",
-"language": "GDScript",
-"path": "res://addons/Wave_Function_Collapse/Resources/ui_rule.gd"
-}, {
-"base": "Node",
-"class": "wave_function_collapse",
-"language": "GDScript",
-"path": "res://addons/Wave_Function_Collapse/WaveFunctionCollpase.gd"
-}, {
-"base": "Reference",
-"class": "wfc_position",
-"language": "GDScript",
-"path": "res://addons/Wave_Function_Collapse/wfc_pos.gd"
-} ]
-_global_script_class_icons={
-"WFC_object": "",
-"WFC_object_list": "",
-"mesh_preview": "",
-"ui_rule": "",
-"wave_function_collapse": "",
-"wfc_position": ""
-}
+config_version=5
 
 [application]
 
 config/name="VERSION_2"
+config/features=PackedStringArray("4.2")
 
 [editor]
 
@@ -59,7 +20,7 @@ version_control_plugin_name="GitAPI"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Wave_Function_Collapse/plugin.cfg" )
+enabled=PackedStringArray("res://addons/Wave_Function_Collapse/plugin.cfg")
 
 [gui]
 

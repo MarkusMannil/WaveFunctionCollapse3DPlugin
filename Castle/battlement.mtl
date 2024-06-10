@@ -1,0 +1,10 @@
+# Created by Kenney (www.kenney.nl)
+
+newmtl bricks
+Kd 1 1 1
+map_Kd Textures/bricks.png
+
+newmtl stones
+Kd 1 1 1
+map_Kd Textures/stones.png
+

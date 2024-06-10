@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 
 signal del_rule
@@ -12,7 +12,8 @@ var index : int
 var selected : int
 
 func _ready():
-	$del_button.icon = get_icon("Remove", "EditorIcons")
+	$del_button.icon = EditorInterface.get_editor_theme().get_icon("Remove", "EditorIcons")
+	pass
 
 
 # index of rule in rules
@@ -28,7 +29,7 @@ func innit_rule_list(base, i, sel = 0):
 	
 	
 	for rul  in base_rules:
-		$"%rule_list".add_item( String(rul.id) +" "+ rul.rule_name)
+		$"%rule_list".add_item( str(rul.id) +" "+ rul.rule_name)
 	
 	
 	var rul = base_rules[selected]
