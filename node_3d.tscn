@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://depfwwfrd6ekt"]
+
+[ext_resource type="Script" path="res://addons/Wave_Function_Collapse/WaveFunctionCollpase.gd" id="1_s7ti4"]
+[ext_resource type="Resource" uid="uid://cosvdoix7d3x4" path="res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/base_rule.tres" id="2_rd0xd"]
+[ext_resource type="Script" path="res://addons/Wave_Function_Collapse/Resources/wfc_object_list.gd" id="3_vdfvt"]
+
+[sub_resource type="Resource" id="Resource_4x5x5"]
+script = ExtResource("3_vdfvt")
+object_list = []
+rule_list = [ExtResource("2_rd0xd")]
+camera_settings = {
+"angle": -21,
+"dist": 2,
+"fov": 35,
+"height": 1
+}
+
+[sub_resource type="MeshLibrary" id="MeshLibrary_crclt"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="wave_function_collapse" type="Node" parent="."]
+script = ExtResource("1_s7ti4")
+objects_resource = SubResource("Resource_4x5x5")
+
+[node name="GridMap" type="GridMap" parent="wave_function_collapse"]
+mesh_library = SubResource("MeshLibrary_crclt")

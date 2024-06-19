@@ -1,13 +1,2 @@
-res://dsa.tscn
 res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/env.tres
 res://addons/Wave_Function_Collapse/Plugin_controll/WFC_theme.tres
-res://addons/Wave_Function_Collapse/Plugin_controll/Main_controll/Plugin_main_controll.gd
-res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/base_rule.tres
-res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/Rule_base.gd
-res://addons/Wave_Function_Collapse/Plugin_controll/base_rule/Rule_base.tscn
-res://addons/Wave_Function_Collapse/Plugin_controll/rule_box/Rule_box.gd
-res://addons/Wave_Function_Collapse/Plugin_controll/Main_controll/Plugin_main_tab.tscn
-res://addons/Wave_Function_Collapse/WaveFunctionCollpase.gd
-res://addons/Wave_Function_Collapse/Plugin_controll/rule_box/Rule_box.tscn
-res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/Mesh_preview.tscn
-res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/3D_controll.gd

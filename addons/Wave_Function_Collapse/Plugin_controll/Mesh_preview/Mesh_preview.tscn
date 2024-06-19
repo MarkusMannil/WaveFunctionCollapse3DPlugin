@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfqw6q7jcffow"]
+[gd_scene load_steps=4 format=3 uid="uid://bfqw6q7jcffow"]
 
 [ext_resource type="Script" path="res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/3D_controll.gd" id="1"]
-[ext_resource type="ArrayMesh" uid="uid://bibrjsidnytd" path="res://Castle/battlement.obj" id="2_6gxdi"]
 [ext_resource type="World3D" uid="uid://docrs5dtyvr8w" path="res://addons/Wave_Function_Collapse/Plugin_controll/Mesh_preview/3D_controll.tres" id="2_jct8n"]
 [ext_resource type="Theme" uid="uid://dhpmswi8p8od5" path="res://addons/Wave_Function_Collapse/Plugin_controll/WFC_theme.tres" id="4"]
 
@@ -34,7 +33,6 @@ near = 0.06
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport"]
 unique_name_in_owner = true
 layers = 524288
-mesh = ExtResource("2_6gxdi")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(0, 0.32549, 1, 0.392157)
